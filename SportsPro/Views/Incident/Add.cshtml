@@ -9,21 +9,16 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Customer" class="control-label"></label>
-        <select asp-for="CustomerID" class="form-control">
-            @foreach (Customer customer in ViewBag.customers)
-            {
-                <option value="@customer.CustomerID">@customer.FullName</option>
-            }
+        <select asp-for="CustomerID" class="form-control"
+                asp-items="@(new SelectList(ViewBag.customers, "CustomerID", "FullName", Model.CustomerID.ToString() ))">
         </select>
     </div>
     <div class="form-group">
         <label asp-for="Product" class="control-label"></label>
-        <select asp-for="ProductID" class="form-control">
-            @foreach (Product product in ViewBag.products)
-            {
-                <option value="@product.ProductID">@product.Name</option>
-            }
+        <select asp-for="ProductID" class="form-control"
+                asp-items="@(new SelectList(ViewBag.products, "ProductID", "Name", Model.ProductID.ToString() ))">
         </select>
+    
     </div>
     <div class="form-group">
         <label asp-for="Title" class="control-label"></label>
@@ -37,11 +32,8 @@
     </div>
     <div class="form-group">
         <label asp-for="TechnicianID" class="control-label"></label>
-        <select asp-for="TechnicianID" class="form-control">
-            @foreach (Technician technician in ViewBag.technicians)
-            {
-                <option value="@technician.TechnicianID">@technician.Name</option>
-            }
+        <select asp-for="TechnicianID" class="form-control"
+                asp-items="@(new SelectList(ViewBag.technicians, "TechnicianID", "Name", Model.TechnicianID ))">
         </select>
     </div>
     <div class="form-group">
