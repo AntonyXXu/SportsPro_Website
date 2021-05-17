@@ -43,6 +43,7 @@ namespace SportsPro.Controllers
             {
                 context.Products.Add(prod);
                 context.SaveChanges();
+                TempData["message"] = $"{prod.Name} was successfully added";
                 return RedirectToAction("List", "Product");
             }
             catch
@@ -58,6 +59,7 @@ namespace SportsPro.Controllers
             {
                 context.Products.Update(prod);
                 context.SaveChanges();
+                TempData["message"] = $"{prod.Name} was successfully updated";
                 return RedirectToAction("List", "Product");
             }
             catch
@@ -74,6 +76,7 @@ namespace SportsPro.Controllers
                 Product prod = context.Products.Find(id);
                 context.Products.Remove(prod);
                 context.SaveChanges();
+                TempData["message"] = $"{prod.Name} was successfully deleted";
                 return RedirectToAction("List", "Product");
             }
             catch
