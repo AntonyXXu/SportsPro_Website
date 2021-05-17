@@ -16,6 +16,7 @@ namespace SportsPro.Controllers
 
         }
 
+        [Route("products")]
         public IActionResult List()
         {
             List<Product> products = context.Products.ToList();

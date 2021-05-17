@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wHjfxZWDYwMAq26gSjUSTZPV7Bw/JsWjCjUh1DlywLLi/0C71V639DL4sqO8VGdUGqk6IrA4zZrZJSmqcVRglA==",
+  "dgSpecHash": "TyXrIRGN/BxYMDAULgK3MbPz7wfUiT80+IASaUy/EoHhscrG789wnj2JHKTdVdDU5HmZj3WmvdYXvaH/+2fc8g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\Learning\\C# ASP\\SportsPro\\SportsPro\\SportsPro.csproj",
+  "projectFilePath": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\SportsPro_Website\\SportsPro\\SportsPro.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anton\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\anton\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

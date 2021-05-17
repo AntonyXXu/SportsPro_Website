@@ -8637,11 +8637,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\Learning\\C# ASP\\SportsPro\\SportsPro\\SportsPro.csproj",
+      "projectUniqueName": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\SportsPro_Website\\SportsPro\\SportsPro.csproj",
       "projectName": "SportsPro",
-      "projectPath": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\Learning\\C# ASP\\SportsPro\\SportsPro\\SportsPro.csproj",
+      "projectPath": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\SportsPro_Website\\SportsPro\\SportsPro.csproj",
       "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\Learning\\C# ASP\\SportsPro\\SportsPro\\obj\\",
+      "outputPath": "C:\\Users\\anton\\Documents\\Work\\Coding\\GitHub\\SportsPro_Website\\SportsPro\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
