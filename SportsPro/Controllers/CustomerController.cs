@@ -16,6 +16,7 @@ namespace SportsPro.Controllers
             context = ctx;
             countries = context.Countries.ToList();
         }
+
         [Route("customers")]
         public IActionResult List()
         {
