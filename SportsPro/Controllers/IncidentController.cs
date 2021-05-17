@@ -24,7 +24,10 @@ namespace SportsPro.Controllers
                 .Include(inc => inc.Product)
                 .OrderBy(inc => inc.DateOpened)
                 .ToList();
-            return View(incidents);
+            IncidentViewModel views = new IncidentViewModel();
+            views.Incidents = incidents;
+
+            return View(views);
         }
 
 
