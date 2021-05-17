@@ -1,0 +1,44 @@
+﻿@model List<Customer>
+    @{
+        ViewData["Title"] = "Customers";
+    }
+
+    <h1>Customers List</h1>
+    <form asp-action="Add" asp method="get">
+        <input type="submit" value="Add new Customer" class="btn btn-primary" />
+    </form>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>City</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.FullName</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.City</td>
+                    <td>
+                        <form asp-action="Edit" asp-route-id="@customer.CustomerID" asp method="get">
+                            <input type="submit" value="Edit" class="btn btn-primary" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@customer.CustomerID" method="post">
+                            <input type="submit" value="Delete" class="btn btn-primary" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Home" asp-action="Index"
+       class="btn btn-primary">Home</a>
+

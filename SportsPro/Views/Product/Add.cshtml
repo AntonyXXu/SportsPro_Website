@@ -1,0 +1,38 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Add" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="ProductID" class="control-label"></label>
+        <input asp-for="ProductID" class="form-control" readonly />
+        <span asp-validation-for="ProductID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductCode" class="control-label"></label>
+        <input asp-for="ProductCode" class="form-control" />
+        <span asp-validation-for="ProductCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="YearlyPrice" class="control-label"></label>
+        <input asp-for="YearlyPrice" class="form-control" />
+        <span asp-validation-for="YearlyPrice" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ReleaseDate" class="control-label"></label>
+        <input asp-for="ReleaseDate" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
