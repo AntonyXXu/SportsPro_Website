@@ -34,49 +34,62 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.customers = context.Customers.ToList();
-            ViewBag.products = context.Products.ToList();
-            ViewBag.technicians = context.Technicians.ToList();
-            return View(new Incident());
+            IncidentAddEditViewModel views = new IncidentAddEditViewModel();
+            views.customers = context.Customers.ToList();
+            views.products = context.Products.ToList();
+            views.technicians = context.Technicians.ToList();
+            views.operation = "Add";
+            views.currentIncident = new Incident();
+            return View(views); 
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
             Incident tech = context.Incidents.Find(id);
-            ViewBag.customers = context.Customers.ToList();
-            ViewBag.products = context.Products.ToList();
-            ViewBag.technicians = context.Technicians.ToList();
-            return View(tech);
+            IncidentAddEditViewModel views = new IncidentAddEditViewModel();
+            views.customers = context.Customers.ToList();
+            views.products = context.Products.ToList();
+            views.technicians = context.Technicians.ToList();
+            views.operation = "Edit";
+            views.currentIncident = tech;
+
+            //Incident tech = context.Incidents.Find(id);
+            //ViewBag.customers = context.Customers.ToList();
+            //ViewBag.products = context.Products.ToList();
+            //ViewBag.technicians = context.Technicians.ToList();
+            return View("Add", views);
         }
 
         [HttpPost]
-        public IActionResult Add(Incident incident)
+        public IActionResult Add(IncidentAddEditViewModel views)
         {
             try
             {
+                Incident incident = views.currentIncident;
                 context.Incidents.Add(incident);
                 context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             catch
             {
-                return View();
+                return View(views);
             }
         }
 
         [HttpPost]
-        public IActionResult Edit(Incident incident)
+        public IActionResult Edit(IncidentAddEditViewModel views)
         {
             try
             {
+                Incident incident = views.currentIncident;
                 context.Incidents.Update(incident);
                 context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             catch
             {
-                return View();
+                return View("Add", views);
             }
         }
 
