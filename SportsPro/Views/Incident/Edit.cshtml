@@ -14,21 +14,17 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.TechnicianID" class="control-label"></label>
-        <select asp-for="@Model.currentIncident.TechnicianID" class="form-control" disabled
-                asp-items="@(new SelectList(Model.technicians, "TechnicianID", "Name", Model.currentIncident.TechnicianID))">
-        </select>
+        <input asp-for="@Model.currentIncident.TechnicianID" class="form-control" readonly />
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.Customer" class="control-label"></label>
-        <select asp-for="@Model.currentIncident.CustomerID" class="form-control" disabled
-                asp-items="@(new SelectList(Model.customers, "CustomerID", "FullName", Model.currentIncident.CustomerID.ToString()))">
-        </select>
+        <input asp-for="@Model.currentIncident.CustomerID" class="form-control" readonly />
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.Product" class="control-label"></label>
-        <select asp-for="@Model.currentIncident.ProductID" class="form-control" disabled
-                asp-items="@(new SelectList(Model.products, "ProductID", "Name", Model.currentIncident.ProductID.ToString()))">
-        </select>
+        <input asp-for="@Model.currentIncident.ProductID" class="form-control" readonly />
 
     </div>
     <div class="form-group">
@@ -38,18 +34,22 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.Description" class="control-label"></label>
-        <textarea asp-for="@Model.currentIncident.Description" class="form-control" ></textarea>
+        <textarea asp-for="@Model.currentIncident.Description" class="form-control"></textarea>
         <span asp-validation-for="@Model.currentIncident.Description" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.DateOpened" class="control-label"></label>
-        <input asp-for="@Model.currentIncident.DateOpened" class="form-control" readonly/>
+        <input asp-for="@Model.currentIncident.DateOpened" class="form-control" readonly />
         <span asp-validation-for="@Model.currentIncident.DateOpened" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.DateClosed" class="control-label"></label>
         <input asp-for="@Model.currentIncident.DateClosed" class="form-control" />
         <span asp-validation-for="@Model.currentIncident.DateClosed" class="text-danger"></span>
+    </div>
+    <input type="hidden" name="dest" value="@ViewBag.technician" />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />

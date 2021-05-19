@@ -40,7 +40,7 @@ namespace SportsPro.Controllers
             views.technicians = context.Technicians.ToList();
             views.operation = "Add";
             views.currentIncident = new Incident();
-            return View(views); 
+            return View(views);
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@ namespace SportsPro.Controllers
             views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
             views.currentIncident = inc;
-            ViewBag.technician = true;
+            ViewBag.technician = inc.TechnicianID;
             return View("Edit", views);
         }
 
@@ -77,7 +77,7 @@ namespace SportsPro.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult TechList(int TechnicianID)
         {
             List<Incident> incidents = context.Incidents
@@ -110,19 +110,23 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(IncidentAddEditViewModel views)
+        public IActionResult Edit(IncidentAddEditViewModel views, int? dest)
         {
-            try
-            {
+            //try
+            //{
                 Incident incident = views.currentIncident;
                 context.Incidents.Update(incident);
                 context.SaveChanges();
+                if (dest != null)
+                {
+                    return RedirectToAction("TechList", "Incident", new { TechnicianID = dest });
+                }
                 return RedirectToAction("List", "Incident");
-            }
-            catch
-            {
-                return View("Add", views);
-            }
+            //}
+            //catch
+            //{
+            //    return View("Add", views);
+            //}
         }
 
         [HttpPost]
