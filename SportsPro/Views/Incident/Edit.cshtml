@@ -50,10 +50,11 @@
     <input type="hidden" name="dest" value="@ViewBag.technician" />
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
+        <button type="button"
+                onclick="location.href='@Url.Action("TechList", "Incident", new {TechnicianID = ViewBag.technician })'"
+                class="btn btn-primary">
+            Cancel
+        </button>
     </div>
-    <div class="form-group">
-        <button type="button" 
-                onclick="location.href='@Url.Action("TechList", "Incident", new {TechnicianID = ViewBag.technician })'" 
-                class="btn btn-primary" >Cancel</button>
-    </div>
+  
 </form>

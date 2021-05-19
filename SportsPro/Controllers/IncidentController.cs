@@ -91,7 +91,6 @@ namespace SportsPro.Controllers
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = incidents;
             HttpContext.Session.SetInt32("techID", TechnicianID);
-            Console.WriteLine(HttpContext.Session.GetInt32("techID"));
 
             return View(views);
         }
@@ -115,21 +114,22 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Edit(IncidentAddEditViewModel views, int? dest)
         {
-            //try
-            //{
+            try
+            {
                 Incident incident = views.currentIncident;
                 context.Incidents.Update(incident);
                 context.SaveChanges();
+                int? techID = HttpContext.Session.GetInt32("techID");
                 if (dest != null)
                 {
-                    return RedirectToAction("TechList", "Incident", new { TechnicianID = dest });
+                    return RedirectToAction("TechList", "Incident", new { TechnicianID = techID });
                 }
                 return RedirectToAction("List", "Incident");
-            //}
-            //catch
-            //{
-            //    return View("Add", views);
-            //}
+            }
+            catch
+            {
+                return View("Add", views);
+            }
         }
 
         [HttpPost]
