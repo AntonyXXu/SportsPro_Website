@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SportsPro.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace SportsPro.Controllers
 {
@@ -89,6 +90,8 @@ namespace SportsPro.Controllers
             ViewBag.TechnicianName = context.Technicians.Find(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = incidents;
+            HttpContext.Session.SetInt32("techID", TechnicianID);
+            Console.WriteLine(HttpContext.Session.GetInt32("techID"));
 
             return View(views);
         }
