@@ -17,6 +17,7 @@ namespace SportsPro.Controllers
         {
             context = ctx;
         }
+
         [Route("incidents")]
         public IActionResult List(string filter = "All")
         {
@@ -29,10 +30,20 @@ namespace SportsPro.Controllers
                     .OrderBy(inc => inc.DateOpened)
                     .ToList();
             }
-            else if (filter == "Opened")
+            else if (filter == "Unassigned")
+            {
+                incidents = context.Incidents
+                .Where(inc => inc.TechnicianID == null)
+                .Include(inc => inc.Customer)
+                .Include(inc => inc.Product)
+                .OrderBy(inc => inc.DateOpened)
+                .ToList();
+            }
+            else if (filter == "Open")
             {
                 incidents = context.Incidents
                 .Where(inc => inc.DateClosed == null || inc.DateClosed >= DateTime.Today)
+                .Where(inc => inc.TechnicianID != null)
                 .Include(inc => inc.Customer)
                 .Include(inc => inc.Product)
                 .OrderBy(inc => inc.DateOpened)

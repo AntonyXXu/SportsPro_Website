@@ -7,7 +7,7 @@ namespace SportsPro.Models
 {
     public class IncidentViewModel
     {
-        public string[] FilterList = { "All", "Open", "Closed" };
+        public string[] FilterList = { "All", "Unassigned", "Open", "Closed" };
 
         public string Filter { get; set; }
         public List<Incident> Incidents
@@ -18,7 +18,6 @@ namespace SportsPro.Models
                 incidents = value;
             }
         }
-
 
         private List<Incident> incidents;
     }
