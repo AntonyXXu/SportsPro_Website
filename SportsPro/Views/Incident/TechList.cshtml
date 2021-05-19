@@ -20,7 +20,6 @@ else {
             <th>Product</th>
             <th>Date Opened</th>
             <th></th>
-            @*<th></th>*@
 
         </tr>
     </thead>
@@ -33,7 +32,7 @@ else {
                 <td>@incident.Product.Name</td>
                 <td>@incident.DateOpened</td>
                 <td>
-                    <form asp-action="Edit" asp-route-id="@incident.IncidentID" asp method="get">
+                    <form asp-action="EditTech" asp-route-id="@incident.IncidentID" asp method="get">
                         <input type="submit" value="Edit" class="btn btn-primary" />
                     </form>
                 </td>

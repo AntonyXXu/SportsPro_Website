@@ -46,14 +46,28 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Incident tech = context.Incidents.Find(id);
+            Incident inc = context.Incidents.Find(id);
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
             views.customers = context.Customers.ToList();
             views.products = context.Products.ToList();
             views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
-            views.currentIncident = tech;
+            views.currentIncident = inc;
             return View("Add", views);
+        }
+
+        [HttpGet]
+        public IActionResult EditTech(int id)
+        {
+            Incident inc = context.Incidents.Find(id);
+            IncidentAddEditViewModel views = new IncidentAddEditViewModel();
+            views.customers = context.Customers.ToList();
+            views.products = context.Products.ToList();
+            views.technicians = context.Technicians.ToList();
+            views.operation = "Edit";
+            views.currentIncident = inc;
+            ViewBag.technician = true;
+            return View("Edit", views);
         }
 
         [HttpGet]
