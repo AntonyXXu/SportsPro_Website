@@ -60,19 +60,19 @@ namespace SportsPro.Controllers
         public IActionResult ListByTech()
         {
             ViewBag.Technicians = context.Technicians.ToList();
-            Technician tech = new Technician();
-            return View(tech);
+            return View();
         }
 
-        [HttpGet]
-        public IActionResult TechList(Technician tech)
+        [HttpPost]
+        public IActionResult TechList(int TechnicianID)
         {
             List<Incident> incidents = context.Incidents
-                .Include(inc => inc.TechnicianID == tech.TechnicianID)
+                .Where(inc => inc.TechnicianID == TechnicianID)
                 .Include(inc => inc.Customer)
                 .Include(inc => inc.Product)
                 .OrderBy(inc => inc.DateOpened)
                 .ToList();
+            ViewBag.TechnicianName = context.Technicians.Find(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = incidents;
 
