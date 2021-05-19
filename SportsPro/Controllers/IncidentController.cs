@@ -53,12 +53,30 @@ namespace SportsPro.Controllers
             views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
             views.currentIncident = tech;
-
-            //Incident tech = context.Incidents.Find(id);
-            //ViewBag.customers = context.Customers.ToList();
-            //ViewBag.products = context.Products.ToList();
-            //ViewBag.technicians = context.Technicians.ToList();
             return View("Add", views);
+        }
+
+        [HttpGet]
+        public IActionResult ListByTech()
+        {
+            ViewBag.Technicians = context.Technicians.ToList();
+            Technician tech = new Technician();
+            return View(tech);
+        }
+
+        [HttpGet]
+        public IActionResult TechList(Technician tech)
+        {
+            List<Incident> incidents = context.Incidents
+                .Include(inc => inc.TechnicianID == tech.TechnicianID)
+                .Include(inc => inc.Customer)
+                .Include(inc => inc.Product)
+                .OrderBy(inc => inc.DateOpened)
+                .ToList();
+            IncidentViewModel views = new IncidentViewModel();
+            views.Incidents = incidents;
+
+            return View(views);
         }
 
         [HttpPost]

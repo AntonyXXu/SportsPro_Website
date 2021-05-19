@@ -1,0 +1,47 @@
+﻿@model IncidentViewModel
+@{
+    ViewData["Title"] = "Incidents by Technician";
+}
+
+<h1>Incidents List by Technician</h1>
+
+@*<form asp-action="Add" asp method="get">
+    <input type="submit" value="Add new Incident" class="btn btn-primary" />
+</form>*@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Date Opened</th>
+            <th></th>
+            @*<th></th>*@
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var incident in Model.Incidents)
+        {
+            <tr>
+                <td>@incident.Title</td>
+                <td>@incident.Customer.FullName</td>
+                <td>@incident.Product.Name</td>
+                <td>@incident.DateOpened</td>
+                <td>
+                    <form asp-action="Edit" asp-route-id="@incident.IncidentID" asp method="get">
+                        <input type="submit" value="Edit" class="btn btn-primary" />
+                    </form>
+                </td>
+                @*<td>
+                    <form asp-action="Delete" asp-route-id="@incident.IncidentID" method="post">
+                        <input type="submit" value="Delete" class="btn btn-primary" />
+                    </form>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="Index"
+   class="btn btn-primary">Home</a>
+
