@@ -18,14 +18,37 @@ namespace SportsPro.Controllers
             context = ctx;
         }
         [Route("incidents")]
-        public IActionResult List()
+        public IActionResult List(string filter = "All")
         {
-            List<Incident> incidents = context.Incidents
+            List<Incident> incidents;
+            if (filter == "All")
+            {
+                incidents = context.Incidents
+                    .Include(inc => inc.Customer)
+                    .Include(inc => inc.Product)
+                    .OrderBy(inc => inc.DateOpened)
+                    .ToList();
+            }
+            else if (filter == "Opened")
+            {
+                incidents = context.Incidents
+                .Where(inc => inc.DateClosed == null || inc.DateClosed >= DateTime.Today)
                 .Include(inc => inc.Customer)
                 .Include(inc => inc.Product)
                 .OrderBy(inc => inc.DateOpened)
                 .ToList();
+            }
+            else
+            {
+                incidents = context.Incidents
+                .Where(inc => inc.DateClosed != null && inc.DateClosed < DateTime.Today)
+                .Include(inc => inc.Customer)
+                .Include(inc => inc.Product)
+                .OrderBy(inc => inc.DateOpened)
+                .ToList();
+            }
             IncidentViewModel views = new IncidentViewModel();
+            views.Filter = filter;
             views.Incidents = incidents;
 
             return View(views);

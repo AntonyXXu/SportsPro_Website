@@ -1,28 +1,39 @@
 ﻿@model IncidentViewModel
-    @{
-        ViewData["Title"] = "Incidents";
+@{
+    ViewData["Title"] = "Incidents";
+}
+
+<h1>Incidents List</h1>
+
+<form asp-action="Add" asp method="get">
+    <input type="submit" value="Add new Incident" class="btn btn-primary" />
+</form>
+<div class="list-group list-group-horizontal">
+    @foreach (string filter in Model.FilterList)
+    {
+        <a asp-action="List"
+           asp-route-filter=@filter
+           class="list-group-item @Model.Filter == 'All' ">
+            @filter Incidents
+        </a>
     }
+</div>
 
-    <h1>Incidents List</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Date Opened</th>
+            <th></th>
+            <th></th>
 
-    <form asp-action="Add" asp method="get">
-        <input type="submit" value="Add new Incident" class="btn btn-primary" />
-    </form>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Customer</th>
-                <th>Product</th>
-                <th>Date Opened</th>
-                <th></th>
-                <th></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var incident in Model.Incidents)
-            {
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var incident in Model.Incidents)
+        {
             <tr>
                 <td>@incident.Title</td>
                 <td>@incident.Customer.FullName</td>
@@ -39,9 +50,9 @@
                     </form>
                 </td>
             </tr>
-            }
-        </tbody>
-    </table>
-    <a asp-controller="Home" asp-action="Index"
-       class="btn btn-primary">Home</a>
+        }
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="Index"
+   class="btn btn-primary">Home</a>
 
