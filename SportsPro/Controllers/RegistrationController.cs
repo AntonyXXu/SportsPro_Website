@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace SportsPro.Controllers
 {
-    public class MgrRegistrationController : Controller
+    public class RegistrationController : Controller
     {
         private SportsProContext context { get; set; }
-        public MgrRegistrationController(SportsProContext ctx)
+        public RegistrationController(SportsProContext ctx)
         {
             context = ctx;
         }
@@ -27,15 +27,12 @@ namespace SportsPro.Controllers
 
         [Route("registrations")]
         [HttpGet]
-        public IActionResult MgrRegistration(int id)
+        public IActionResult MgrRegistration(int CustomerID)
         {
-            List<Product> products = context.Products
-                .Where(p => p.ProductID == id)
-                .Include(p => p.Name)
-                .ToList();
-            ViewBag.CustomerName = context.Customers.Find(id).FullName;
-            MgrRegisration views = new MgrRegisration();
-            views.Products = products;
+            List<Customer> product = context.Customers.Where(p => p.CustomerID == CustomerID).ToList();
+            MgrRegisrationModel views = new MgrRegisrationModel();
+            views.Products = context.Products.ToList();
+            ViewBag.Customer = context.Customers.Find(CustomerID).FullName;
             return View(views);
         }
     }

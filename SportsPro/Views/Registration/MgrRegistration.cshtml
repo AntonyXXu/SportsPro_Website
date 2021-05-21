@@ -1,16 +1,16 @@
-﻿@model MgrRegisration
+﻿@model MgrRegisrationModel
 @{
     ViewData["Title"] = "Registrations";
 }
 
 <h1>Customer: @ViewBag.CustomerName</h1>
 
-{
+
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Product</th>
-                <th></th>
+                
             </tr>
         </thead>
         <tbody>
@@ -18,17 +18,10 @@
             {
                 <tr>
                     <td>@product.Name<td>
-                    <td></td>
-                    <td>
-                        <form asp-action="EditTech" asp-route-id="@product.ProductID" asp method="get">
-                            <input type="submit" value="Edit" class="btn btn-primary" />
+                        <form asp-action="" asp-route-id="@product.ProductID" asp method="get">
+                            <input type="submit" value="Delete" class="btn btn-primary" />
                         </form>
-                    </td>
-
-                </tr>
+                    </tr>
             }
         </tbody>
     </table>
-}
-<a asp-controller="Incident" asp-action="ListByTech"
-   class="btn btn-primary">Back</a>
