@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace SportsPro.Controllers
 {
-    public class RegistrationController : Controller
+    public class MgrRegistrationController : Controller
     {
         private SportsProContext context { get; set; }
-        public RegistrationController(SportsProContext ctx)
+        public MgrRegistrationController(SportsProContext ctx)
         {
             context = ctx;
         }
