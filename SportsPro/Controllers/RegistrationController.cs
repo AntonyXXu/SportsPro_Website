@@ -24,5 +24,12 @@ namespace SportsPro.Controllers
             ViewBag.Customers = context.Customers.ToList();
             return View();
         }
+
+        [Route("registrations")]
+        [HttpGet]
+        public IActionResult Registration(int id)
+        {
+            List<Customer> products = context.Customers.Where(p => p.ProductID == id).Include()
+        }
     }
 }
