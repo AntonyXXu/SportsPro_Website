@@ -15,5 +15,7 @@ namespace SportsPro.Models
 		[Required]
 		public int ProductID { get; set; }     // foreign key property
 		public Product Product { get; set; }   // navigation property
+
+		public List<Product> Products { get; set; }
 	}
 }

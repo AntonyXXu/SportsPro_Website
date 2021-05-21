@@ -1,4 +1,4 @@
-﻿@model Incident
+﻿@model MgrRegisration
 @{
     ViewData["Title"] = "Registrations";
 }
@@ -14,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in )
+            @foreach (var product in Model.Products)
             {
                 <tr>
-                    <td>@products.Product<td>
+                    <td>@product.Name<td>
                     <td></td>
                     <td>
-                        <form asp-action="EditTech" asp-route-id="@products.ProductID" asp method="get">
+                        <form asp-action="EditTech" asp-route-id="@product.ProductID" asp method="get">
                             <input type="submit" value="Edit" class="btn btn-primary" />
                         </form>
                     </td>

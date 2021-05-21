@@ -27,15 +27,16 @@ namespace SportsPro.Controllers
 
         [Route("registrations")]
         [HttpGet]
-        public IActionResult Registration(int id)
+        public IActionResult MgrRegistration(int id)
         {
             List<Product> products = context.Products
                 .Where(p => p.ProductID == id)
                 .Include(p => p.Name)
                 .ToList();
             ViewBag.CustomerName = context.Customers.Find(id).FullName;
-
-            return View();
+            MgrRegisration views = new MgrRegisration();
+            views.Products = products;
+            return View(views);
         }
     }
 }
