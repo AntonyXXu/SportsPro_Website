@@ -15,10 +15,15 @@ namespace SportsPro.Models
 		[Required]
 		public string Name { get; set; }
 
+
 		[Range(0, 1000000)]
 		[Column(TypeName = "decimal(8,2)")]
 		public decimal YearlyPrice { get; set; }
 
 		public DateTime ReleaseDate { get; set; } = DateTime.Now;
+
+		public ICollection<Incident> Incidents { get; set; }
+
+
 	}
 }

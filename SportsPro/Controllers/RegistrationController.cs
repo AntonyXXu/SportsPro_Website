@@ -29,11 +29,16 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult MgrRegistration(int CustomerID)
         {
-            List<Customer> product = context.Customers.Where(p => p.CustomerID == CustomerID).ToList();
-            MgrRegisrationModel views = new MgrRegisrationModel();
-            views.Products = context.Products.ToList();
+            List<Incident> products= context.Incidents
+            .Where(inc => inc.CustomerID == CustomerID)
+            .Include(inc => inc.Customer)
+            .Include(inc => inc.Product)
+            .ToList();
             ViewBag.Customer = context.Customers.Find(CustomerID).FullName;
-            return View(views);
+            //MgrRegisrationModel views = new MgrRegisrationModel();
+            //views.Products = products;
+
+            return View(products);
         }
     }
 }
