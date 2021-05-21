@@ -1,0 +1,34 @@
+﻿@model Incident
+@{
+    ViewData["Title"] = "Registrations";
+}
+
+<h1>Customer: @ViewBag.CustomerName</h1>
+
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in )
+            {
+                <tr>
+                    <td>@products.Product<td>
+                    <td></td>
+                    <td>
+                        <form asp-action="EditTech" asp-route-id="@products.ProductID" asp method="get">
+                            <input type="submit" value="Edit" class="btn btn-primary" />
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<a asp-controller="Incident" asp-action="ListByTech"
+   class="btn btn-primary">Back</a>

@@ -29,7 +29,13 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Registration(int id)
         {
-            List<Customer> products = context.Customers.Where(p => p.ProductID == id).Include()
+            List<Product> products = context.Products
+                .Where(p => p.ProductID == id)
+                .Include(p => p.Name)
+                .ToList();
+            ViewBag.CustomerName = context.Customers.Find(id).FullName;
+
+            return View();
         }
     }
 }
