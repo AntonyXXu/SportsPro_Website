@@ -26,6 +26,8 @@ namespace SportsPro.Models
             modelBuilder.ApplyConfiguration(new SeedProduct());
             modelBuilder.ApplyConfiguration(new SeedTechnician());
             modelBuilder.ApplyConfiguration(new SeedCountry());
+            modelBuilder.ApplyConfiguration(new SeedCustomer());
+            modelBuilder.ApplyConfiguration(new SeedIncident());
 
 
             //modelBuilder.Entity<Product>().HasData(
@@ -168,147 +170,147 @@ namespace SportsPro.Models
             //    new Country { CountryID = "ZW", Name = "Zimbabwe" }
             //);
 
-            modelBuilder.Entity<Customer>().HasData(
-                new Customer
-                {
-                    CustomerID = 1002,
-                    FirstName = "Ania",
-                    LastName = "Irvin",
-                    Address = "PO Box 96621",
-                    City = "Washington",
-                    State = "DC",
-                    PostalCode = "20090",
-                    CountryID = "US",
-                    Phone = "(301) 555-8950",
-                    Email = "ania@mma.nidc.com"
-                },
-                new Customer
-                {
-                    CustomerID = 1004,
-                    FirstName = "Kenzie",
-                    LastName = "Quinn",
-                    Address = "1990 Westwood Blvd Ste 260",
-                    City = "Los Angeles",
-                    State = "CA",
-                    PostalCode = "90025",
-                    CountryID = "US",
-                    Phone = "(800) 555-8725",
-                    Email = "kenzie@mma.jobtrak.com"
-                },
-                new Customer
-                {
-                    CustomerID = 1006,
-                    FirstName = "Anton",
-                    LastName = "Mauro",
-                    Address = "3255 Ramos Cir",
-                    City = "Sacramento",
-                    State = "CA",
-                    PostalCode = "95827",
-                    CountryID = "US",
-                    Phone = "(916) 555-6670",
-                    Email = "amauro@yahoo.org"
-                },
-                new Customer
-                {
-                    CustomerID = 1008,
-                    FirstName = "Kaitlyn",
-                    LastName = "Anthoni",
-                    Address = "Box 52001",
-                    City = "San Francisco",
-                    State = "CA",
-                    PostalCode = "94152",
-                    CountryID = "US",
-                    Phone = "(800) 555-6081",
-                    Email = "kanthoni@pge.com"
-                },
-                new Customer
-                {
-                    CustomerID = 1010,
-                    FirstName = "Kendall",
-                    LastName = "Mayte",
-                    Address = "PO Box 2069",
-                    City = "Fresno",
-                    State = "CA",
-                    PostalCode = "93718",
-                    CountryID = "US",
-                    Phone = "(559) 555-9999",
-                    Email = "kmayte@fresno.ca.gov"
-                },
-                new Customer
-                {
-                    CustomerID = 1012,
-                    FirstName = "Marvin",
-                    LastName = "Quintin",
-                    Address = "4420 N. First Street, Suite 108",
-                    City = "Fresno",
-                    State = "CA",
-                    PostalCode = "93726",
-                    CountryID = "US",
-                    Phone = "(559) 555-9586",
-                    Email = "marvin@expedata.com"
-                },
-                new Customer
-                {
-                    CustomerID = 1015,
-                    FirstName = "Gonzalo",
-                    LastName = "Keeton",
-                    Address = "27371 Valderas",
-                    City = "Mission Viejo",
-                    State = "CA",
-                    PostalCode = "92691",
-                    CountryID = "US",
-                    Phone = "(214) 555-3647",
-                    Email = ""
-                }
-            );
+            //modelBuilder.Entity<Customer>().HasData(
+            //    new Customer
+            //    {
+            //        CustomerID = 1002,
+            //        FirstName = "Ania",
+            //        LastName = "Irvin",
+            //        Address = "PO Box 96621",
+            //        City = "Washington",
+            //        State = "DC",
+            //        PostalCode = "20090",
+            //        CountryID = "US",
+            //        Phone = "(301) 555-8950",
+            //        Email = "ania@mma.nidc.com"
+            //    },
+            //    new Customer
+            //    {
+            //        CustomerID = 1004,
+            //        FirstName = "Kenzie",
+            //        LastName = "Quinn",
+            //        Address = "1990 Westwood Blvd Ste 260",
+            //        City = "Los Angeles",
+            //        State = "CA",
+            //        PostalCode = "90025",
+            //        CountryID = "US",
+            //        Phone = "(800) 555-8725",
+            //        Email = "kenzie@mma.jobtrak.com"
+            //    },
+            //    new Customer
+            //    {
+            //        CustomerID = 1006,
+            //        FirstName = "Anton",
+            //        LastName = "Mauro",
+            //        Address = "3255 Ramos Cir",
+            //        City = "Sacramento",
+            //        State = "CA",
+            //        PostalCode = "95827",
+            //        CountryID = "US",
+            //        Phone = "(916) 555-6670",
+            //        Email = "amauro@yahoo.org"
+            //    },
+            //    new Customer
+            //    {
+            //        CustomerID = 1008,
+            //        FirstName = "Kaitlyn",
+            //        LastName = "Anthoni",
+            //        Address = "Box 52001",
+            //        City = "San Francisco",
+            //        State = "CA",
+            //        PostalCode = "94152",
+            //        CountryID = "US",
+            //        Phone = "(800) 555-6081",
+            //        Email = "kanthoni@pge.com"
+            //    },
+            //    new Customer
+            //    {
+            //        CustomerID = 1010,
+            //        FirstName = "Kendall",
+            //        LastName = "Mayte",
+            //        Address = "PO Box 2069",
+            //        City = "Fresno",
+            //        State = "CA",
+            //        PostalCode = "93718",
+            //        CountryID = "US",
+            //        Phone = "(559) 555-9999",
+            //        Email = "kmayte@fresno.ca.gov"
+            //    },
+            //    new Customer
+            //    {
+            //        CustomerID = 1012,
+            //        FirstName = "Marvin",
+            //        LastName = "Quintin",
+            //        Address = "4420 N. First Street, Suite 108",
+            //        City = "Fresno",
+            //        State = "CA",
+            //        PostalCode = "93726",
+            //        CountryID = "US",
+            //        Phone = "(559) 555-9586",
+            //        Email = "marvin@expedata.com"
+            //    },
+            //    new Customer
+            //    {
+            //        CustomerID = 1015,
+            //        FirstName = "Gonzalo",
+            //        LastName = "Keeton",
+            //        Address = "27371 Valderas",
+            //        City = "Mission Viejo",
+            //        State = "CA",
+            //        PostalCode = "92691",
+            //        CountryID = "US",
+            //        Phone = "(214) 555-3647",
+            //        Email = ""
+            //    }
+            //);
 
 
-            modelBuilder.Entity<Incident>().HasData(
-                new Incident
-                {
-                    IncidentID = 1,
-                    CustomerID = 1010,
-                    ProductID = 1,
-                    TechnicianID = 11,
-                    Title = "Could not install",
-                    Description = "Media appears to be bad.",
-                    DateOpened = DateTime.Parse("2020-01-08"),
-                    DateClosed = DateTime.Parse("2020-01-10")
-                },
-                new Incident
-                {
-                    IncidentID = 2,
-                    CustomerID = 1002,
-                    ProductID = 4,
-                    TechnicianID = 14,
-                    Title = "Error importing data",
-                    Description = "Received error message 415 while trying to import data from previous version.",
-                    DateOpened = DateTime.Parse("2020-01-09"),
-                    DateClosed = null
-                },
-                new Incident
-                {
-                    IncidentID = 3,
-                    CustomerID = 1015,
-                    ProductID = 6,
-                    TechnicianID = 15,
-                    Title = "Could not install",                    
-                    Description = "Setup failed with code 104.",
-                    DateOpened = DateTime.Parse("2020-01-08"),
-                    DateClosed = DateTime.Parse("2020-01-10")
-                },
-                new Incident
-                {
-                    IncidentID = 4,
-                    CustomerID = 1010,
-                    ProductID = 3,
-                    TechnicianID = null,
-                    Title = "Error launching program",                    
-                    Description = "Program fails with error code 510, unable to open database.",
-                    DateOpened = DateTime.Parse("2020-01-10"),
-                    DateClosed = null
-                }
-            );
+            //modelBuilder.Entity<Incident>().HasData(
+            //    new Incident
+            //    {
+            //        IncidentID = 1,
+            //        CustomerID = 1010,
+            //        ProductID = 1,
+            //        TechnicianID = 11,
+            //        Title = "Could not install",
+            //        Description = "Media appears to be bad.",
+            //        DateOpened = DateTime.Parse("2020-01-08"),
+            //        DateClosed = DateTime.Parse("2020-01-10")
+            //    },
+            //    new Incident
+            //    {
+            //        IncidentID = 2,
+            //        CustomerID = 1002,
+            //        ProductID = 4,
+            //        TechnicianID = 14,
+            //        Title = "Error importing data",
+            //        Description = "Received error message 415 while trying to import data from previous version.",
+            //        DateOpened = DateTime.Parse("2020-01-09"),
+            //        DateClosed = null
+            //    },
+            //    new Incident
+            //    {
+            //        IncidentID = 3,
+            //        CustomerID = 1015,
+            //        ProductID = 6,
+            //        TechnicianID = 15,
+            //        Title = "Could not install",                    
+            //        Description = "Setup failed with code 104.",
+            //        DateOpened = DateTime.Parse("2020-01-08"),
+            //        DateClosed = DateTime.Parse("2020-01-10")
+            //    },
+            //    new Incident
+            //    {
+            //        IncidentID = 4,
+            //        CustomerID = 1010,
+            //        ProductID = 3,
+            //        TechnicianID = null,
+            //        Title = "Error launching program",                    
+            //        Description = "Program fails with error code 510, unable to open database.",
+            //        DateOpened = DateTime.Parse("2020-01-10"),
+            //        DateClosed = null
+            //    }
+            //);
         }
     }
 }
