@@ -15,7 +15,7 @@ namespace SportsPro.Models.DataLayer.SeedData
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasData(
+            var info = (
                 new Product
                 {
                     ProductID = 1,
@@ -71,7 +71,9 @@ namespace SportsPro.Models.DataLayer.SeedData
                     Name = "Tournament Master 2.0",
                     YearlyPrice = 5.99M,
                     ReleaseDate = DateTime.Parse("2018-02-15 00:00:00.000")
-                }
+                });
+            builder.HasData(
+               info
                 );
 
         }

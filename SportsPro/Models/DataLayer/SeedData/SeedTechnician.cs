@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SportsPro.Models.DataLayer.SeedData
 {
-    internal class SeedTechnician : IEntityTypeConfiguration<Product>
+    internal class SeedTechnician : IEntityTypeConfiguration<Technician>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Technician> builder)
         {
             builder.HasData(
                 new Technician

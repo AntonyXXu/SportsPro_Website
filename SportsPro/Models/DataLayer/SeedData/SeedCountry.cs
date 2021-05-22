@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SportsPro.Models.DataLayer.SeedData
 {
-    internal class SeedCountry : IEntityTypeConfiguration<Product>
+    internal class SeedCountry : IEntityTypeConfiguration<Country>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Country> builder)
         {
             builder.HasData(
                 new Country { CountryID = "AU", Name = "Australia" },
