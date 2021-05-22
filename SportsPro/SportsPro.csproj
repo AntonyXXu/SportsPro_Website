@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DataLayer\" />
+    <Folder Include="Models\DataLayer\Repositories\" />
   </ItemGroup>
 
 

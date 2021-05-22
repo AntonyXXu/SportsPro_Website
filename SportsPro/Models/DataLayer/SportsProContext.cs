@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SportsPro.Models.DataLayer.SeedData;
 
 namespace SportsPro.Models
 {
@@ -21,6 +22,9 @@ namespace SportsPro.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.ApplyConfiguration(new SeedProduct());
+
 
             modelBuilder.Entity<Product>().HasData(
                 new Product
