@@ -65,14 +65,13 @@ namespace SportsPro.Controllers
         {
             try
             {
-                customers.Insert(cust);
+                customers.Update(cust);
                 customers.Save();
-                //context.Customers.Update(cust);
-                //context.SaveChanges();
                 return RedirectToAction("List", "Customer");
             }
             catch
             {
+                ViewBag.Country = countries.List(new QueryOptions<Country>());
                 return View(cust);
             }
         }
