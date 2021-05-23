@@ -87,11 +87,14 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Incident inc = context.Incidents.Find(id);
+            Incident inc = sportsUnit.Incidents.Get(id);
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
-            views.customers = context.Customers.ToList();
-            views.products = context.Products.ToList();
-            views.technicians = context.Technicians.ToList();
+            views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
+            views.products = sportsUnit.Products.List(new QueryOptions<Product>());
+            views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
+            //views.customers = context.Customers.ToList();
+            //views.products = context.Products.ToList();
+            //views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
             views.currentIncident = inc;
             return View("Add", views);
