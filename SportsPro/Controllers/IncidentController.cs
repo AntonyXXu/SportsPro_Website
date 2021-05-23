@@ -22,48 +22,33 @@ namespace SportsPro.Controllers
         [Route("incidents")]
         public ViewResult List(string filter = "All")
         {
-            List<Incident> incidents;
-            IEnumerable<Incident> test;
-            if (filter == "All")
+            //List<Incident> incidents;
+            QueryOptions<Incident> query = new QueryOptions<Incident>
             {
-                incidents = context.Incidents
-                    .Include(inc => inc.Customer)
-                    .Include(inc => inc.Product)
-                    .OrderBy(inc => inc.DateOpened)
-                    .ToList();
-            }
-            else if (filter == "Unassigned")
+                Includes = "Customer, Product",
+                OrderBy = inc => inc.DateOpened
+            };
+
+            //if (filter == "All")
+            //{ }
+            if (filter == "Unassigned")
             {
-                incidents = context.Incidents
-                .Where(inc => inc.TechnicianID == null)
-                .Include(inc => inc.Customer)
-                .Include(inc => inc.Product)
-                .OrderBy(inc => inc.DateOpened)
-                .ToList();
+                query.Where = inc => inc.TechnicianID == null;
             }
             else if (filter == "Open")
             {
-                incidents = context.Incidents
-                .Where(inc => inc.DateClosed == null || inc.DateClosed >= DateTime.Today)
-                .Where(inc => inc.TechnicianID != null)
-                .Include(inc => inc.Customer)
-                .Include(inc => inc.Product)
-                .OrderBy(inc => inc.DateOpened)
-                .ToList();
+                query.Where = inc => inc.DateClosed == null || inc.DateClosed >= DateTime.Today;
+                query.Where = inc => inc.TechnicianID != null;
             }
-            else
+            else if (filter == "Closed")
             {
-                incidents = context.Incidents
-                .Where(inc => inc.DateClosed != null && inc.DateClosed < DateTime.Today)
-                .Include(inc => inc.Customer)
-                .Include(inc => inc.Product)
-                .OrderBy(inc => inc.DateOpened)
-                .ToList();
+                query.Where = inc => inc.DateClosed != null && inc.DateClosed < DateTime.Today;
             }
+
+            IEnumerable<Incident> incidents = sportsUnit.Incidents.List(query);
             IncidentViewModel views = new IncidentViewModel();
             views.Filter = filter;
             views.Incidents = incidents;
-
             return View(views);
         }
 
@@ -75,10 +60,6 @@ namespace SportsPro.Controllers
             views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             views.products = sportsUnit.Products.List(new QueryOptions<Product>());
             views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
-
-            //views.customers = context.Customers.ToList();
-            //views.products = context.Products.ToList();
-            //views.technicians = context.Technicians.ToList();
             views.operation = "Add";
             views.currentIncident = new Incident();
             return View(views);
@@ -92,9 +73,6 @@ namespace SportsPro.Controllers
             views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             views.products = sportsUnit.Products.List(new QueryOptions<Product>());
             views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
-            //views.customers = context.Customers.ToList();
-            //views.products = context.Products.ToList();
-            //views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
             views.currentIncident = inc;
             return View("Add", views);
@@ -108,9 +86,6 @@ namespace SportsPro.Controllers
             views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             views.products = sportsUnit.Products.List(new QueryOptions<Product>());
             views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
-            //views.customers = context.Customers.ToList();
-            //views.products = context.Products.ToList();
-            //views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
             views.currentIncident = inc;
             ViewBag.technician = inc.TechnicianID;
@@ -121,7 +96,6 @@ namespace SportsPro.Controllers
         public IActionResult ListByTech()
         {
             ViewBag.Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
-            //ViewBag.Technicians = context.Technicians.ToList();
             return View();
         }
 
@@ -135,7 +109,6 @@ namespace SportsPro.Controllers
                 .OrderBy(inc => inc.DateOpened)
                 .ToList();
             ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID).Name;
-            //ViewBag.TechnicianName = context.Technicians.Find(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = incidents;
             HttpContext.Session.SetInt32("techID", TechnicianID);
@@ -151,8 +124,6 @@ namespace SportsPro.Controllers
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Insert(incident);
                 sportsUnit.save();
-                //context.Incidents.Add(incident);
-                //context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             catch
@@ -169,9 +140,6 @@ namespace SportsPro.Controllers
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Update(incident);
                 sportsUnit.save();
-
-                //context.Incidents.Update(incident);
-                //context.SaveChanges();
                 int? techID = HttpContext.Session.GetInt32("techID");
                 if (dest != null)
                 {
@@ -193,9 +161,6 @@ namespace SportsPro.Controllers
                 Incident incident = sportsUnit.Incidents.Get(id);
                 sportsUnit.Incidents.Delete(incident);
                 sportsUnit.save();
-                //Incident incident = context.Incidents.Find(id);
-                //context.Incidents.Remove(incident);
-                //context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             catch
