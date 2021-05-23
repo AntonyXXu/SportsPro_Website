@@ -13,7 +13,6 @@ namespace SportsPro.Controllers
         public ProductController(SportsProContext ctx)
         {
             context = ctx;
-
         }
 
         [Route("products")]
