@@ -11,17 +11,24 @@ namespace SportsPro.Controllers
     {
         private SportsProContext context { get; set; }
         private List<Country> countries { get; set; }
+        private Repository<Country> countriesRep { get; set; }
+        private Repository<Customer> customers { get; set; }
         public CustomerController(SportsProContext ctx)
         {
             context = ctx;
             countries = context.Countries.ToList();
+            countriesRep = new Repository<Country>(ctx);
+            customers = new Repository<Customer>(ctx);
         }
 
         [Route("customers")]
         public IActionResult List()
         {
-            List<Customer> customers = context.Customers.ToList();
-            return View(customers);
+            List<Customer> oldcustomers = context.Customers.ToList();
+
+            IEnumerable<Customer> cust = customers.List(new QueryOptions<Customer>());
+
+            return View(cust);
         }
 
         [HttpGet]
