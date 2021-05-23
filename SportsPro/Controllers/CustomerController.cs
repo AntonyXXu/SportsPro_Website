@@ -9,14 +9,14 @@ namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
-        private SportsProContext context { get; set; }
-        private List<Country> oldcountries { get; set; }
+        //private SportsProContext context { get; set; }
+        //private List<Country> oldcountries { get; set; }
         private Repository<Country> countries { get; set; }
         private Repository<Customer> customers { get; set; }
         public CustomerController(SportsProContext ctx)
         {
-            context = ctx;
-            oldcountries = context.Countries.ToList();
+            //context = ctx;
+            //oldcountries = context.Countries.ToList();
             countries = new Repository<Country>(ctx);
             customers = new Repository<Customer>(ctx);
         }
@@ -84,9 +84,6 @@ namespace SportsPro.Controllers
                 Customer cust = customers.Get(id);
                 customers.Delete(cust);
                 customers.Save();
-                //Customer cust = context.Customers.Find(id);
-                //context.Customers.Remove(cust);
-                //context.SaveChanges();
                 return RedirectToAction("List", "Customer");
             }
             catch
