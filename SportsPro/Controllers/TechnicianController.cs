@@ -9,17 +9,18 @@ namespace SportsPro.Controllers
 {
     public class TechnicianController : Controller
     {
-        private SportsProContext context { get; set; }
+        private Repository<Technician> technicians;
         public TechnicianController(SportsProContext ctx)
         {
-            context = ctx;
+            //context = ctx;
+            technicians = new Repository<Technician>(ctx);
         }
 
         [Route("technicians")]
         public IActionResult List()
         {
-            List<Technician> technicians = context.Technicians.ToList();
-            return View(technicians);
+            IEnumerable<Technician> techs = technicians.List(new QueryOptions<Technician>());
+            return View(techs);
         }
 
 
@@ -32,7 +33,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Technician tech = context.Technicians.Find(id);
+            Technician tech = technicians.Get(id);
             return View(tech);
         }
 
@@ -41,8 +42,8 @@ namespace SportsPro.Controllers
         {
             try
             {
-                context.Technicians.Add(tech);
-                context.SaveChanges();
+                technicians.Insert(tech);
+                technicians.Save();
                 return RedirectToAction("List", "Technician");
             }
             catch
@@ -56,8 +57,8 @@ namespace SportsPro.Controllers
         {
             try
             {
-                context.Technicians.Update(tech);
-                context.SaveChanges();
+                technicians.Update(tech);
+                technicians.Save();
                 return RedirectToAction("List", "Technician");
             }
             catch
@@ -71,9 +72,9 @@ namespace SportsPro.Controllers
         {
             try
             {
-                Technician tech = context.Technicians.Find(id);
-                context.Technicians.Remove(tech);
-                context.SaveChanges();
+                Technician tech = technicians.Get(id);
+                technicians.Delete(tech);
+                technicians.Save();
                 return RedirectToAction("List", "Technician");
             }
             catch
