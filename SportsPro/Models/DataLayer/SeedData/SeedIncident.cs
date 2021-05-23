@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace SportsPro.Models.DataLayer.SeedData
+namespace SportsPro.Models
 {
     internal class SeedIncident : IEntityTypeConfiguration<Incident>
     {

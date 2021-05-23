@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Bookstore.Models
+namespace SportsPro.Models.DataLayer
 {
     public static class QueryExtensions
     {
