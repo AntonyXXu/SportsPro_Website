@@ -14,6 +14,24 @@ namespace SportsPro.Models.DataLayer.SeedData
     {
         public void Configure(EntityTypeBuilder<Incident> builder)
         {
+            builder.HasOne("SportsPro.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+            builder.HasOne("SportsPro.Models.Product", "Product")
+                .WithMany()
+                .HasForeignKey("ProductID")
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
+
+            builder.HasOne("SportsPro.Models.Technician", "Technician")
+                .WithMany()
+                .HasForeignKey("TechnicianID");
+
+
+
             builder.HasData(
                   new Incident
                   {
