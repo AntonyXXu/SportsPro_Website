@@ -103,11 +103,14 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult EditTech(int id)
         {
-            Incident inc = context.Incidents.Find(id);
+            Incident inc = sportsUnit.Incidents.Get(id);
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
-            views.customers = context.Customers.ToList();
-            views.products = context.Products.ToList();
-            views.technicians = context.Technicians.ToList();
+            views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
+            views.products = sportsUnit.Products.List(new QueryOptions<Product>());
+            views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
+            //views.customers = context.Customers.ToList();
+            //views.products = context.Products.ToList();
+            //views.technicians = context.Technicians.ToList();
             views.operation = "Edit";
             views.currentIncident = inc;
             ViewBag.technician = inc.TechnicianID;
@@ -117,7 +120,8 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult ListByTech()
         {
-            ViewBag.Technicians = context.Technicians.ToList();
+            ViewBag.Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
+            //ViewBag.Technicians = context.Technicians.ToList();
             return View();
         }
 
@@ -130,7 +134,8 @@ namespace SportsPro.Controllers
                 .Include(inc => inc.Product)
                 .OrderBy(inc => inc.DateOpened)
                 .ToList();
-            ViewBag.TechnicianName = context.Technicians.Find(TechnicianID).Name;
+            ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID).Name;
+            //ViewBag.TechnicianName = context.Technicians.Find(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = incidents;
             HttpContext.Session.SetInt32("techID", TechnicianID);
@@ -144,8 +149,10 @@ namespace SportsPro.Controllers
             try
             {
                 Incident incident = views.currentIncident;
-                context.Incidents.Add(incident);
-                context.SaveChanges();
+                sportsUnit.Incidents.Insert(incident);
+                sportsUnit.save();
+                //context.Incidents.Add(incident);
+                //context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             catch
@@ -160,8 +167,11 @@ namespace SportsPro.Controllers
             try
             {
                 Incident incident = views.currentIncident;
-                context.Incidents.Update(incident);
-                context.SaveChanges();
+                sportsUnit.Incidents.Update(incident);
+                sportsUnit.save();
+
+                //context.Incidents.Update(incident);
+                //context.SaveChanges();
                 int? techID = HttpContext.Session.GetInt32("techID");
                 if (dest != null)
                 {
@@ -180,9 +190,12 @@ namespace SportsPro.Controllers
         {
             try
             {
-                Incident incident = context.Incidents.Find(id);
-                context.Incidents.Remove(incident);
-                context.SaveChanges();
+                Incident incident = sportsUnit.Incidents.Get(id);
+                sportsUnit.Incidents.Delete(incident);
+                sportsUnit.save();
+                //Incident incident = context.Incidents.Find(id);
+                //context.Incidents.Remove(incident);
+                //context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             catch
