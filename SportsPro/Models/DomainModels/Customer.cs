@@ -35,7 +35,7 @@ namespace SportsPro.Models
 		public string CountryID { get; set; }
 		public Country Country { get; set; }
 
-		[RegularExpression("^[(]\\d{3}[)]\\s\\d{3}[-]\\d{4}$", ErrorMessage = "Please input in format (000)000-0000")]
+		[RegularExpression("^[(]\\d{3}[)]\\s\\d{3}[-]\\d{4}$", ErrorMessage = "Please input in format (000) 000-0000")]
 		public string Phone { get; set; }
 
 		[DataType(DataType.EmailAddress, ErrorMessage = "Please enter a valid email address")]

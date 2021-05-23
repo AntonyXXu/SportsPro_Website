@@ -9,25 +9,23 @@ namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
-        private Repository<Country> countries { get; set; }
-        private Repository<Customer> customers { get; set; }
-        public CustomerController(SportsProContext ctx)
+        private ISportsUnitWork sportsUnit { get; set; }
+        public CustomerController(ISportsUnitWork sports)
         {
-            countries = new Repository<Country>(ctx);
-            customers = new Repository<Customer>(ctx);
+            sportsUnit = sports;
         }
 
         [Route("customers")]
         public IActionResult List()
         {
-            IEnumerable<Customer> cust = customers.List(new QueryOptions<Customer>());
+            IEnumerable<Customer> cust = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View(cust);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Country = countries.List(new QueryOptions<Country>());
+            ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
             Customer cust = new Customer();
             return View(cust);
         }
@@ -35,8 +33,8 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Country = countries.List(new QueryOptions<Country>());
-            Customer cust = customers.Get(id);
+            ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
+            Customer cust = sportsUnit.Customers.Get(id);
             return View(cust);
         }
 
@@ -45,8 +43,8 @@ namespace SportsPro.Controllers
         {
             try
             {
-                customers.Insert(cust);
-                customers.Save();
+                sportsUnit.Customers.Insert(cust);
+                sportsUnit.Customers.Save();
                 return RedirectToAction("List", "Customer");
             }
             catch
@@ -60,13 +58,13 @@ namespace SportsPro.Controllers
         {
             try
             {
-                customers.Update(cust);
-                customers.Save();
+                sportsUnit.Customers.Update(cust);
+                sportsUnit.Customers.Save();
                 return RedirectToAction("List", "Customer");
             }
             catch
             {
-                ViewBag.Country = countries.List(new QueryOptions<Country>());
+                ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
                 return View(cust);
             }
         }
@@ -76,9 +74,9 @@ namespace SportsPro.Controllers
         {
             try
             {
-                Customer cust = customers.Get(id);
-                customers.Delete(cust);
-                customers.Save();
+                Customer cust = sportsUnit.Customers.Get(id);
+                sportsUnit.Customers.Delete(cust);
+                sportsUnit.Customers.Save();
                 return RedirectToAction("List", "Customer");
             }
             catch
