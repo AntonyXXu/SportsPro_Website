@@ -12,16 +12,18 @@ namespace SportsPro.Controllers
     public class IncidentController : Controller
     {
         private SportsProContext context { get; set; }
-
+        private SportsUnitWork sportsUnit;
         public IncidentController(SportsProContext ctx)
         {
             context = ctx;
+            sportsUnit = new SportsUnitWork(ctx);
         }
 
         [Route("incidents")]
-        public IActionResult List(string filter = "All")
+        public ViewResult List(string filter = "All")
         {
             List<Incident> incidents;
+            IEnumerable<Incident> test;
             if (filter == "All")
             {
                 incidents = context.Incidents
@@ -70,9 +72,13 @@ namespace SportsPro.Controllers
         public IActionResult Add()
         {
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
-            views.customers = context.Customers.ToList();
-            views.products = context.Products.ToList();
-            views.technicians = context.Technicians.ToList();
+            views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
+            views.products = sportsUnit.Products.List(new QueryOptions<Product>());
+            views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
+
+            //views.customers = context.Customers.ToList();
+            //views.products = context.Products.ToList();
+            //views.technicians = context.Technicians.ToList();
             views.operation = "Add";
             views.currentIncident = new Incident();
             return View(views);

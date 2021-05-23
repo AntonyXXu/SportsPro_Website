@@ -7,9 +7,9 @@ namespace SportsPro.Models
 {
     public class IncidentAddEditViewModel
     {
-        public List<Customer> customers { get; set; }
-        public List<Product> products { get; set; }
-        public List<Technician> technicians { get; set; }
+        public IEnumerable<Customer> customers { get; set; }
+        public IEnumerable<Product> products { get; set; }
+        public IEnumerable<Technician> technicians { get; set; }
         public string operation { get; set; }
         public Incident currentIncident { get; set; }
     }

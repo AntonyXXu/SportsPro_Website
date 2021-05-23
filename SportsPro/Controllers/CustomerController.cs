@@ -9,14 +9,10 @@ namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
-        //private SportsProContext context { get; set; }
-        //private List<Country> oldcountries { get; set; }
         private Repository<Country> countries { get; set; }
         private Repository<Customer> customers { get; set; }
         public CustomerController(SportsProContext ctx)
         {
-            //context = ctx;
-            //oldcountries = context.Countries.ToList();
             countries = new Repository<Country>(ctx);
             customers = new Repository<Customer>(ctx);
         }
@@ -24,7 +20,6 @@ namespace SportsPro.Controllers
         [Route("customers")]
         public IActionResult List()
         {
-            //List<Customer> oldcustomers = context.Customers.ToList();
             IEnumerable<Customer> cust = customers.List(new QueryOptions<Customer>());
             return View(cust);
         }
