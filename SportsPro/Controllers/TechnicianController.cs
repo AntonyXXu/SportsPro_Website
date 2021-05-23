@@ -12,7 +12,6 @@ namespace SportsPro.Controllers
         private Repository<Technician> technicians;
         public TechnicianController(SportsProContext ctx)
         {
-            //context = ctx;
             technicians = new Repository<Technician>(ctx);
         }
 
