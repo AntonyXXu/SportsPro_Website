@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SportsPro.Models.DataLayer
+namespace SportsPro.Models
 {
     public static class QueryExtensions
     {

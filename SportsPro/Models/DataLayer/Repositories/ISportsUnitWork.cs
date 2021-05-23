@@ -7,6 +7,15 @@ namespace SportsPro.Models
 {
     public interface ISportsUnitWork
     {
-        Repository<>
+        Repository<Customer> Customers {get;}
+        Repository<Incident> Incidents { get; }
+        Repository<Product> Products { get; }
+        Repository<Country> Countries { get; }
+        Repository<Technician> Technicians { get; }
+        Repository<User> Users { get; }
+
+        void save();
+
+
     }
 }
