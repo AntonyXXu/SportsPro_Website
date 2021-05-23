@@ -31,10 +31,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\DataLayer\Repositories\" />
-  </ItemGroup>
-
 
 
 </Project>
