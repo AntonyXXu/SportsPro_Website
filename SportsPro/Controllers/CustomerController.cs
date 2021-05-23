@@ -9,8 +9,8 @@ namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
-        private Repository<Country> countries { get; set; }
-        private Repository<Customer> customers { get; set; }
+        private IRepository<Country> countries { get; set; }
+        private IRepository<Customer> customers { get; set; }
         public CustomerController(SportsProContext ctx)
         {
             countries = new Repository<Country>(ctx);

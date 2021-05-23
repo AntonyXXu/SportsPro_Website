@@ -9,11 +9,11 @@ namespace SportsPro.Controllers
 {
     public class ProductController : Controller
     {
-        private Repository<Product> products;
+        private IRepository<Product> products;
 
-        public ProductController(SportsProContext ctx)
+        public ProductController(IRepository<Product> prod)
         {
-            products = new Repository<Product>(ctx);
+            products = prod;
         }
 
         [Route("products")]
