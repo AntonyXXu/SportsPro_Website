@@ -11,10 +11,10 @@ namespace SportsPro.Controllers
 {
     public class IncidentController : Controller
     {
-        private SportsUnitWork sportsUnit;
-        public IncidentController(SportsProContext ctx)
+        private ISportsUnitWork sportsUnit;
+        public IncidentController(ISportsUnitWork ctx)
         {
-            sportsUnit = new SportsUnitWork(ctx);
+            sportsUnit = ctx;
         }
 
         [Route("incidents")]
