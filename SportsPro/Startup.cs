@@ -34,6 +34,9 @@ namespace SportsPro
 
             services.AddControllersWithViews();
 
+            services.AddTransient<ISportsUnitWork, SportsUnitWork>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SportsPro")));
