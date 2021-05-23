@@ -11,29 +11,21 @@ namespace SportsPro_Test
     public class ProductControllerTest
     {
         [Fact]
-        public void Index_Returns_ViewAction()
+        public void List_Returns_ViewAction()
         {
             //Arrange
-            var controller = new HomeController();
+            var repo = new Mock<IRepository<Product>>();
+            
+            var controller = new ProductController(repo.Object);
 
             //Act
-            var result = controller.Index();
+            var result = controller.List();
 
             //Assert
             Assert.IsType<ViewResult>(result);
         }
 
-        [Fact]
-        public void About_Returns_ViewAction()
-        {
-            //Arrange
-            var controller = new HomeController();
-
-            //Act
-            var result = controller.About();
-
-            //Assert
-            Assert.IsType<ViewResult>(result);
-        }
+       
+        
     }
 }
