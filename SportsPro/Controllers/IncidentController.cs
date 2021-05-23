@@ -11,26 +11,21 @@ namespace SportsPro.Controllers
 {
     public class IncidentController : Controller
     {
-        private SportsProContext context { get; set; }
         private SportsUnitWork sportsUnit;
         public IncidentController(SportsProContext ctx)
         {
-            context = ctx;
             sportsUnit = new SportsUnitWork(ctx);
         }
 
         [Route("incidents")]
         public ViewResult List(string filter = "All")
         {
-            //List<Incident> incidents;
             QueryOptions<Incident> query = new QueryOptions<Incident>
             {
                 Includes = "Customer, Product",
                 OrderBy = inc => inc.DateOpened
             };
 
-            //if (filter == "All")
-            //{ }
             if (filter == "Unassigned")
             {
                 query.Where = inc => inc.TechnicianID == null;
@@ -102,15 +97,16 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult TechList(int TechnicianID)
         {
-            List<Incident> incidents = context.Incidents
-                .Where(inc => inc.TechnicianID == TechnicianID)
-                .Include(inc => inc.Customer)
-                .Include(inc => inc.Product)
-                .OrderBy(inc => inc.DateOpened)
-                .ToList();
+            QueryOptions<Incident> query = new QueryOptions<Incident>
+            {
+                Where = inc => inc.TechnicianID == TechnicianID,
+                Includes = "Customer, Product",
+                OrderBy = inc => inc.DateOpened
+            };
+      
             ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
-            views.Incidents = incidents;
+            views.Incidents = sportsUnit.Incidents.List(query) ;
             HttpContext.Session.SetInt32("techID", TechnicianID);
 
             return View(views);
