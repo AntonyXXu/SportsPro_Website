@@ -9,10 +9,10 @@ namespace SportsPro.Controllers
 {
     public class TechnicianController : Controller
     {
-        private Repository<Technician> technicians;
-        public TechnicianController(SportsProContext ctx)
+        private IRepository<Technician> technicians;
+        public TechnicianController(IRepository<Technician> tech)
         {
-            technicians = new Repository<Technician>(ctx);
+            technicians = tech;
         }
 
         [Route("technicians")]
