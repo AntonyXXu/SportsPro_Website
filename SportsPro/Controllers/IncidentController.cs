@@ -105,10 +105,10 @@ namespace SportsPro.Controllers
                 Includes = "Customer, Product",
                 OrderBy = inc => inc.DateOpened
             };
-      
+
             ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
-            views.Incidents = sportsUnit.Incidents.List(query) ;
+            views.Incidents = sportsUnit.Incidents.List(query);
             http.HttpContext.Session.SetInt32("techID", TechnicianID);
 
             return View(views);

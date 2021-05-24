@@ -15,10 +15,10 @@ namespace SportsPro.Models
         public void Configure(EntityTypeBuilder<Incident> builder)
         {
             builder.HasOne("SportsPro.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                .WithMany()
+                .HasForeignKey("CustomerID")
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
 
             builder.HasOne("SportsPro.Models.Product", "Product")
                 .WithMany()
