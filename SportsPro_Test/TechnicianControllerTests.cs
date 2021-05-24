@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SportsPro_Test
 {
-    public class ProductControllerTest
+    public class TechnicianControllerTest
     {
         [Fact]
         public void List_Returns_ViewAction()
         {
             //Arrange
-            var repo = new Mock<IRepository<Product>>();
-            var controller = new ProductController(repo.Object);
+            var repo = new Mock<IRepository<Technician>>();
+            var controller = new TechnicianController(repo.Object);
 
             //Act
             var result = controller.List();
@@ -28,8 +28,8 @@ namespace SportsPro_Test
         public void Add_Returns_ViewResult()
         {
             //Arrange
-            var repo = new Mock<IRepository<Product>>();
-            var controller = new ProductController(repo.Object);
+            var repo = new Mock<IRepository<Technician>>();
+            var controller = new TechnicianController(repo.Object);
 
             //Act
             var result = controller.Add();
@@ -42,8 +42,8 @@ namespace SportsPro_Test
         public void Edit_Returns_ViewResult()
         {
             //Arrange
-            var repo = new Mock<IRepository<Product>>();
-            var controller = new ProductController(repo.Object);
+            var repo = new Mock<IRepository<Technician>>();
+            var controller = new TechnicianController(repo.Object);
             int id = 1;
 
             //Act
@@ -57,8 +57,8 @@ namespace SportsPro_Test
         public void EditPost_ReturnsViewResult_Invalid()
         {
             //Arrange
-            var repo = new Mock<IRepository<Product>>();
-            var controller = new ProductController(repo.Object);
+            var repo = new Mock<IRepository<Technician>>();
+            var controller = new TechnicianController(repo.Object);
             controller.ModelState.AddModelError("", "TestError");
             int test = 1;
 
@@ -73,8 +73,8 @@ namespace SportsPro_Test
         public void EditPost_ReturnsActionResult_valid()
         {
             //Arrange
-            var repo = new Mock<IRepository<Product>>();
-            var controller = new ProductController(repo.Object);
+            var repo = new Mock<IRepository<Technician>>();
+            var controller = new TechnicianController(repo.Object);
             int test = 1;
 
             //Act
