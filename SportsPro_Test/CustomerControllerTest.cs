@@ -27,34 +27,43 @@ namespace SportsPro_Test
             Assert.IsType<ViewResult>(result);
         }
 
-        //[Fact]
-        //public void Add_Returns_ViewResult()
-        //{
-        //    //Arrange
-        //    var repo = new Mock<IRepository<Product>>();
-        //    var controller = new ProductController(repo.Object);
+        [Fact]
+        public void Add_Returns_ViewResult()
+        {
+            //Arrange
+            var unit = new Mock<ISportsUnitWork>();
+            var custs = new Mock<IRepository<Customer>>();
+            var countries = new Mock<IRepository<Country>>();
+            unit.Setup(r => r.Customers).Returns(custs.Object);
+            unit.Setup(r => r.Countries).Returns(countries.Object);
+            var controller = new CustomerController(unit.Object);
 
-        //    //Act
-        //    var result = controller.Add();
 
-        //    //Assert
-        //    Assert.IsType<ViewResult>(result);
-        //}
+            //Act
+            var result = controller.Add();
 
-        //[Fact]
-        //public void Edit_Returns_ViewResult()
-        //{
-        //    //Arrange
-        //    var repo = new Mock<IRepository<Product>>();
-        //    var controller = new ProductController(repo.Object);
-        //    int id = 1;
+            //Assert
+            Assert.IsType<ViewResult>(result);
+        }
 
-        //    //Act
-        //    var result = controller.Edit(id);
+        [Fact]
+        public void Edit_Returns_ViewResult()
+        {
+            //Arrange
+            var unit = new Mock<ISportsUnitWork>();
+            var custs = new Mock<IRepository<Customer>>();
+            var countries = new Mock<IRepository<Country>>();
+            unit.Setup(r => r.Customers).Returns(custs.Object);
+            unit.Setup(r => r.Countries).Returns(countries.Object);
+            var controller = new CustomerController(unit.Object);
+            int id = 1;
 
-        //    //Assert
-        //    Assert.IsType<ViewResult>(result);
-        //}
+            //Act
+            var result = controller.Edit(id);
+
+            //Assert
+            Assert.IsType<ViewResult>(result);
+        }
 
 
     }
