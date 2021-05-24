@@ -13,8 +13,8 @@ namespace SportsPro.Models
             context = ctx;
         }
 
-        private Repository<Customer> customerData;
-        public Repository<Customer> Customers
+        private IRepository<Customer> customerData;
+        public IRepository<Customer> Customers
         {
             get
             {
@@ -26,8 +26,8 @@ namespace SportsPro.Models
             }
         }
 
-        private Repository<Country> countryData;
-        public Repository<Country> Countries
+        private IRepository<Country> countryData;
+        public IRepository<Country> Countries
         {
             get
             {
@@ -39,8 +39,8 @@ namespace SportsPro.Models
             }
         }
 
-        private Repository<Incident> incidentData;
-        public Repository<Incident> Incidents
+        private IRepository<Incident> incidentData;
+        public IRepository<Incident> Incidents
         {
             get
             {
@@ -52,8 +52,8 @@ namespace SportsPro.Models
             }
         }
 
-        private Repository<Product> productData;
-        public Repository<Product> Products
+        private IRepository<Product> productData;
+        public IRepository<Product> Products
         {
             get
             {
@@ -65,8 +65,8 @@ namespace SportsPro.Models
             }
         }
 
-        private Repository<Technician> technicianData;
-        public Repository<Technician> Technicians
+        private IRepository<Technician> technicianData;
+        public IRepository<Technician> Technicians
         {
             get
             {
@@ -78,8 +78,8 @@ namespace SportsPro.Models
             }
         }
 
-        private Repository<User> userData;
-        public Repository<User> Users
+        private IRepository<User> userData;
+        public IRepository<User> Users
         {
             get
             {
