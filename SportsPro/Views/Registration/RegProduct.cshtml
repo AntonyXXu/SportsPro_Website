@@ -1,0 +1,40 @@
+﻿@model MgrRegistrationModel
+@{
+    ViewData["Title"] = "Registrations";
+}
+
+<h1>Customer: @ViewBag.CustomerName</h1>
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Product</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cust in Model.CustomerProducts)
+            {
+                <tr>
+                    <td>@cust.Product.Name<td>
+                        <form asp-action="" asp-route-id="@cust.ProductID" asp method="get">
+                            <input type="submit" value="Delete" class="btn btn-primary" />
+                        </form>
+                    </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="MgrRegistration" method="post">
+        <div class="form-group">
+            <label name="Product" class="control-label"></label>
+            <select name="ProductID" type="number" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name"))">
+                <option value="">Select a product...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Select" class="btn btn-primary" />
+        </div>
+    </form>

@@ -19,7 +19,7 @@ namespace SportsPro.Controllers
 
         [Route("getcustomer")]
         [HttpGet]
-        public IActionResult GetCustomer()
+        public IActionResult List()
         {
             ViewBag.Customers = context.Customers.ToList();
             return View();
@@ -27,18 +27,27 @@ namespace SportsPro.Controllers
 
         [Route("registrations")]
         [HttpGet]
-        public IActionResult MgrRegistration(int CustomerID)
+        public IActionResult RegProduct(int CustomerID)
         {
-            List<Incident> products= context.Incidents
-            .Where(inc => inc.CustomerID == CustomerID)
-            .Include(inc => inc.Customer)
-            .Include(inc => inc.Product)
-            .ToList();
-            ViewBag.Customer = context.Customers.Find(CustomerID).FullName;
-            //MgrRegisrationModel views = new MgrRegisrationModel();
-            //views.Products = products;
+            List<CustomerProduct> cust = context.CustomerProducts
+                .Where(c => c.CustomerID == CustomerID)
+                .Include(c => c.Product)
+                .OrderBy(c => c.ProductID)
+                .ToList();
+            ViewBag.CustomerName = context.Customers.Find(CustomerID).FullName;
+            ViewBag.Products = context.Products.ToList();
+            MgrRegistrationModel views = new MgrRegistrationModel();
+            views.CustomerProducts = cust;
 
-            return View(products);
+            return View(views);
+        }
+        [HttpPost]
+        public IActionResult RegProduct(MgrRegistrationModel views)
+        {
+            CustomerProduct cust = views.currentCustomer;
+            context.CustomerProducts.Add(cust);
+            context.SaveChanges();
+            return RedirectToAction("MgrRegistration", views);
         }
     }
 }

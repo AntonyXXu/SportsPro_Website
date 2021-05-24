@@ -22,7 +22,7 @@ namespace SportsPro.Models
 
 		public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
-		public ICollection<Incident> Incidents { get; set; }
+		public ICollection<CustomerProduct> CustomerProducts { get; set; }
 
 
 	}

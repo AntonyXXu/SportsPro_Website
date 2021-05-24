@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsPro.Models;
 
 namespace SportsPro.Migrations
 {
     [DbContext(typeof(SportsProContext))]
-    partial class SportsProContextModelSnapshot : ModelSnapshot
+    [Migration("20210522201539_customerproducts")]
+    partial class customerproducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -396,18 +398,6 @@ namespace SportsPro.Migrations
                     b.HasIndex("CustomerID");
 
                     b.ToTable("CustomerProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductID = 4,
-                            CustomerID = 1002
-                        },
-                        new
-                        {
-                            ProductID = 3,
-                            CustomerID = 1010
-                        });
                 });
 
             modelBuilder.Entity("SportsPro.Models.Incident", b =>
