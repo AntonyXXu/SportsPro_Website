@@ -15,7 +15,6 @@ namespace SportsPro_Test
         {
             //Arrange
             var repo = new Mock<IRepository<Product>>();
-            
             var controller = new ProductController(repo.Object);
 
             //Act
@@ -25,7 +24,35 @@ namespace SportsPro_Test
             Assert.IsType<ViewResult>(result);
         }
 
-       
-        
+        [Fact]
+        public void Add_Returns_ViewResult()
+        {
+            //Arrange
+            var repo = new Mock<IRepository<Product>>();
+            var controller = new ProductController(repo.Object);
+
+            //Act
+            var result = controller.Add();
+
+            //Assert
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void Edit_Returns_ViewResult()
+        {
+            //Arrange
+            var repo = new Mock<IRepository<Product>>();
+            var controller = new ProductController(repo.Object);
+            int id = 1;
+
+            //Act
+            var result = controller.Edit(id);
+
+            //Assert
+            Assert.IsType<ViewResult>(result);
+        }
+
+
     }
 }
