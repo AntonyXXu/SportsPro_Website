@@ -12,9 +12,11 @@ namespace SportsPro.Controllers
     public class IncidentController : Controller
     {
         private ISportsUnitWork sportsUnit;
-        public IncidentController(ISportsUnitWork ctx)
+        private IHttpContextAccessor http;
+        public IncidentController(ISportsUnitWork ctx, IHttpContextAccessor httpctx)
         {
             sportsUnit = ctx;
+            http = httpctx;
         }
 
         [Route("incidents")]
@@ -107,7 +109,7 @@ namespace SportsPro.Controllers
             ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID).Name;
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = sportsUnit.Incidents.List(query) ;
-            HttpContext.Session.SetInt32("techID", TechnicianID);
+            http.HttpContext.Session.SetInt32("techID", TechnicianID);
 
             return View(views);
         }
@@ -136,7 +138,7 @@ namespace SportsPro.Controllers
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Update(incident);
                 sportsUnit.save();
-                int? techID = HttpContext.Session.GetInt32("techID");
+                int? techID = http.HttpContext.Session.GetInt32("techID");
                 if (dest != null)
                 {
                     return RedirectToAction("TechList", "Incident", new { TechnicianID = techID });
