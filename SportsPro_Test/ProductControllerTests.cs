@@ -60,10 +60,9 @@ namespace SportsPro_Test
             var repo = new Mock<IRepository<Product>>();
             var controller = new ProductController(repo.Object);
             controller.ModelState.AddModelError("", "TestError");
-            int test = 1;
 
             //Act
-            var result = controller.Edit( test);
+            var result = controller.Edit( new Product());
 
             Assert.IsType<ViewResult>(result);
 
@@ -75,10 +74,10 @@ namespace SportsPro_Test
             //Arrange
             var repo = new Mock<IRepository<Product>>();
             var controller = new ProductController(repo.Object);
-            int test = 1;
+            
 
             //Act
-            var result = controller.Edit(test);
+            var result = controller.Edit(new Product());
 
             Assert.IsType<ViewResult>(result);
         }
