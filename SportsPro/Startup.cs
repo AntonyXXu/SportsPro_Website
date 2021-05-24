@@ -36,6 +36,7 @@ namespace SportsPro
 
             services.AddTransient<ISportsUnitWork, SportsUnitWork>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddHttpContextAccessor();
 
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
