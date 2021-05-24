@@ -18,7 +18,7 @@ namespace SportsPro_Test
             var inc = new Mock<IRepository<Incident>>();
             unit.Setup(r => r.Incidents).Returns(inc.Object);
             var controller = new IncidentController(unit.Object);
-            
+
 
             //Act
             var result = controller.List();
@@ -73,6 +73,29 @@ namespace SportsPro_Test
             Assert.IsType<ViewResult>(result);
         }
 
+        [Fact]
+        public void TechList_Returns_ViewResult()
+        {
+            //Arrange
+            var unit = new Mock<ISportsUnitWork>();
+            var inc = new Mock<IRepository<Incident>>();
+            var prod = new Mock<IRepository<Product>>();
+            var tech = new Mock<IRepository<Technician>>();
+            tech.Setup(t => t.Get(It.IsAny<int>())).Returns(new Technician());
+            var cust = new Mock<IRepository<Customer>>();
+            unit.Setup(r => r.Incidents).Returns(inc.Object);
+            unit.Setup(r => r.Customers).Returns(cust.Object);
+            unit.Setup(r => r.Products).Returns(prod.Object);
+            unit.Setup(r => r.Technicians).Returns(tech.Object);
+            var controller = new IncidentController(unit.Object);
+            int id = 1;
+
+            //Act
+            var result = controller.TechList(id);
+
+            //Assert
+            Assert.IsType<ViewResult>(result);
+        }
 
     }
 }
