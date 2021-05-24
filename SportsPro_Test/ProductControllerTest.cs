@@ -53,6 +53,34 @@ namespace SportsPro_Test
             Assert.IsType<ViewResult>(result);
         }
 
+        [Fact]
+        public void EditPost_ReturnsViewResult_Invalid()
+        {
+            //Arrange
+            var repo = new Mock<IRepository<Product>>();
+            var controller = new ProductController(repo.Object);
+            controller.ModelState.AddModelError("", "TestError");
+            int test = 1;
 
+            //Act
+            var result = controller.Edit( test);
+
+            Assert.IsType<ViewResult>(result);
+
+        }
+
+        [Fact]
+        public void EditPost_ReturnsActionResult_valid()
+        {
+            //Arrange
+            var repo = new Mock<IRepository<Product>>();
+            var controller = new ProductController(repo.Object);
+            int test = 1;
+
+            //Act
+            var result = controller.Edit(test);
+
+            Assert.IsType<ViewResult>(result);
+        }
     }
 }
