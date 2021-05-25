@@ -10,7 +10,7 @@ namespace SportsPro.Models
         public string[] FilterList = { "All", "Unassigned", "Open", "Closed" };
 
         public string Filter { get; set; }
-        public List<Incident> Incidents
+        public IEnumerable<Incident> Incidents
         {
             get => incidents;
             set
@@ -19,6 +19,6 @@ namespace SportsPro.Models
             }
         }
 
-        private List<Incident> incidents;
+        private IEnumerable<Incident> incidents;
     }
 }

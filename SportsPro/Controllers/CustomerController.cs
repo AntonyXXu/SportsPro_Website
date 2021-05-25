@@ -9,33 +9,32 @@ namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
-        private SportsProContext context { get; set; }
-        private List<Country> countries { get; set; }
-        public CustomerController(SportsProContext ctx)
+        private ISportsUnitWork sportsUnit { get; set; }
+        public CustomerController(ISportsUnitWork sports)
         {
-            context = ctx;
-            countries = context.Countries.ToList();
+            sportsUnit = sports;
         }
 
         [Route("customers")]
         public IActionResult List()
         {
-            List<Customer> customers = context.Customers.ToList();
-            return View(customers);
+            IEnumerable<Customer> cust = sportsUnit.Customers.List(new QueryOptions<Customer>());
+            return View(cust);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Country = countries;
-            return View(new Customer());
+            ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
+            Customer cust = new Customer();
+            return View(cust);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Country = countries;
-            Customer cust = context.Customers.Find(id);
+            ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
+            Customer cust = sportsUnit.Customers.Get(id);
             return View(cust);
         }
 
@@ -44,8 +43,8 @@ namespace SportsPro.Controllers
         {
             try
             {
-                context.Customers.Add(cust);
-                context.SaveChanges();
+                sportsUnit.Customers.Insert(cust);
+                sportsUnit.Customers.Save();
                 return RedirectToAction("List", "Customer");
             }
             catch
@@ -59,13 +58,14 @@ namespace SportsPro.Controllers
         {
             try
             {
-                context.Customers.Update(cust);
-                context.SaveChanges();
+                sportsUnit.Customers.Update(cust);
+                sportsUnit.Customers.Save();
                 return RedirectToAction("List", "Customer");
             }
             catch
             {
-                return View();
+                ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
+                return View(cust);
             }
         }
 
@@ -74,9 +74,9 @@ namespace SportsPro.Controllers
         {
             try
             {
-                Customer cust = context.Customers.Find(id);
-                context.Customers.Remove(cust);
-                context.SaveChanges();
+                Customer cust = sportsUnit.Customers.Get(id);
+                sportsUnit.Customers.Delete(cust);
+                sportsUnit.Customers.Save();
                 return RedirectToAction("List", "Customer");
             }
             catch

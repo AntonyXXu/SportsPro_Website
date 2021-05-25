@@ -3,20 +3,22 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsPro.Models;
 
 namespace SportsPro.Migrations
 {
     [DbContext(typeof(SportsProContext))]
-    partial class SportsProContextModelSnapshot : ModelSnapshot
+    [Migration("20210522184426_AddIdentityTables")]
+    partial class AddIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -388,26 +390,31 @@ namespace SportsPro.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(51)")
+                        .HasMaxLength(51);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(51)")
+                        .HasMaxLength(51);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(51)")
+                        .HasMaxLength(51);
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(21)")
+                        .HasMaxLength(21);
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(51)")
+                        .HasMaxLength(51);
 
                     b.HasKey("CustomerID");
 
@@ -506,33 +513,6 @@ namespace SportsPro.Migrations
                             Phone = "(214) 555-3647",
                             PostalCode = "92691",
                             State = "CA"
-                        });
-                });
-
-            modelBuilder.Entity("SportsPro.Models.CustomerProduct", b =>
-                {
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductID", "CustomerID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.ToTable("CustomerProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductID = 4,
-                            CustomerID = 1002
-                        },
-                        new
-                        {
-                            ProductID = 3,
-                            CustomerID = 1010
                         });
                 });
 
@@ -894,27 +874,6 @@ namespace SportsPro.Migrations
                         .HasForeignKey("CountryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("SportsPro.Models.CustomerProduct", b =>
-                {
-                    b.HasOne("SportsPro.Models.Customer", "Customer")
-                        .WithMany("CustomerProducts")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SportsPro.Models.Product", "Product")
-                        .WithMany("CustomerProducts")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SportsPro.Models.Incident", b =>
@@ -934,22 +893,6 @@ namespace SportsPro.Migrations
                     b.HasOne("SportsPro.Models.Technician", "Technician")
                         .WithMany()
                         .HasForeignKey("TechnicianID");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Technician");
-                });
-
-            modelBuilder.Entity("SportsPro.Models.Customer", b =>
-                {
-                    b.Navigation("CustomerProducts");
-                });
-
-            modelBuilder.Entity("SportsPro.Models.Product", b =>
-                {
-                    b.Navigation("CustomerProducts");
                 });
 #pragma warning restore 612, 618
         }

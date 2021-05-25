@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using SportsPro.Models;
+using System;
 
 namespace SportsPro
 {
@@ -33,6 +34,10 @@ namespace SportsPro
 
             services.AddControllersWithViews();
 
+            services.AddTransient<ISportsUnitWork, SportsUnitWork>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddHttpContextAccessor();
+
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SportsPro")));
@@ -42,6 +47,17 @@ namespace SportsPro
                 options.LowercaseUrls = true;
                 options.AppendTrailingSlash = true;
             });
+
+            //Identity service 
+            services.AddIdentity<User, IdentityRole>
+                (options => {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                })
+                .AddEntityFrameworkStores<SportsProContext>()
+                .AddDefaultTokenProviders();
         }
 
         // Use this method to configure the HTTP request pipeline.
@@ -62,6 +78,9 @@ namespace SportsPro
 
             app.UseRouting();
 
+            //configure middleware that runs after routing decisions have been made
+            //Configure app to use authentication and authorization (p.s. Order Matters!)
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

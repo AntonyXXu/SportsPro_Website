@@ -9,18 +9,18 @@ namespace SportsPro.Controllers
 {
     public class ProductController : Controller
     {
-        private SportsProContext context { get; set; }
-        public ProductController(SportsProContext ctx)
-        {
-            context = ctx;
+        private IRepository<Product> products;
 
+        public ProductController(IRepository<Product> prod)
+        {
+            products = prod;
         }
 
         [Route("products")]
         public IActionResult List()
         {
-            List<Product> products = context.Products.ToList();
-            return View(products);
+            IEnumerable<Product> prod = products.List(new QueryOptions<Product>());
+            return View(prod);
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Product prod = context.Products.Find(id);
+            Product prod = products.Get(id);
             return View(prod);
         }
 
@@ -41,8 +41,8 @@ namespace SportsPro.Controllers
         {
             try
             {
-                context.Products.Add(prod);
-                context.SaveChanges();
+                products.Insert(prod);
+                products.Save();
                 TempData["message"] = $"{prod.Name} was successfully added";
                 return RedirectToAction("List", "Product");
             }
@@ -57,8 +57,8 @@ namespace SportsPro.Controllers
         {
             try
             {
-                context.Products.Update(prod);
-                context.SaveChanges();
+                products.Update(prod);
+                products.Save();
                 TempData["message"] = $"{prod.Name} was successfully updated";
                 return RedirectToAction("List", "Product");
             }
@@ -73,9 +73,9 @@ namespace SportsPro.Controllers
         {
             try
             {
-                Product prod = context.Products.Find(id);
-                context.Products.Remove(prod);
-                context.SaveChanges();
+                Product prod = products.Get(id);
+                products.Delete(prod);
+                products.Save();
                 TempData["message"] = $"{prod.Name} was successfully deleted";
                 return RedirectToAction("List", "Product");
             }
