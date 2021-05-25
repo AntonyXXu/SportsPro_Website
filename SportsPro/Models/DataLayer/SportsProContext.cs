@@ -17,6 +17,7 @@ namespace SportsPro.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Incident> Incidents { get; set; }
+        public DbSet<CustomerProduct> CustomerProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,27 @@ namespace SportsPro.Models
             modelBuilder.ApplyConfiguration(new SeedCustomer());
             modelBuilder.ApplyConfiguration(new SeedIncident());
 
+            modelBuilder.Entity<CustomerProduct>().HasKey(cr => new { cr.ProductID, cr.CustomerID });
+
+            modelBuilder.Entity<CustomerProduct>().HasOne(cr => cr.Product)
+                .WithMany(b => b.CustomerProducts)
+                .HasForeignKey(cr => cr.ProductID);
+            modelBuilder.Entity<CustomerProduct>().HasOne(cr => cr.Customer)
+                .WithMany(a => a.CustomerProducts)
+                .HasForeignKey(cr => cr.CustomerID);
+
+            modelBuilder.Entity<CustomerProduct>().HasData(
+                new CustomerProduct
+                {
+                    ProductID = 4,
+                    CustomerID = 1002
+                },
+                new CustomerProduct
+                {
+                    ProductID = 3,
+                    CustomerID = 1010
+                }
+            );
 
             //modelBuilder.Entity<Product>().HasData(
             //    new Product
