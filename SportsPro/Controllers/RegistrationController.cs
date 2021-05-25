@@ -24,30 +24,39 @@ namespace SportsPro.Controllers
             ViewBag.Customers = context.Customers.ToList();
             return View();
         }
+    
+    
+    [HttpGet]
+    public IActionResult RegProduct(int CustomerID)
+    {
+        List<CustomerProduct> cust = context.CustomerProducts
+            .Where(c => c.CustomerID == CustomerID)
+            .Include(c => c.Product)
+            .ToList();
+        ViewBag.CustomerName = context.Customers.Find(CustomerID).FullName;
+        ViewBag.Products = context.Products.ToList();
+        MgrRegistrationModel views = new MgrRegistrationModel();
+        views.CustomerProducts = cust;
 
-        [Route("registrations")]
-        [HttpGet]
-        public IActionResult RegProduct(int CustomerID)
-        {
-            List<CustomerProduct> cust = context.CustomerProducts
-                .Where(c => c.CustomerID == CustomerID)
-                .Include(c => c.Product)
-                .OrderBy(c => c.ProductID)
-                .ToList();
-            ViewBag.CustomerName = context.Customers.Find(CustomerID).FullName;
-            ViewBag.Products = context.Products.ToList();
-            MgrRegistrationModel views = new MgrRegistrationModel();
-            views.CustomerProducts = cust;
-
-            return View(views);
-        }
+        return View(views);
+    }
         [HttpPost]
         public IActionResult RegProduct(MgrRegistrationModel views)
         {
-            CustomerProduct cust = views.currentCustomer;
-            context.CustomerProducts.Add(cust);
+            var reg = new CustomerProduct(){ ProductID = views.ProductID, CustomerID = views.CustomerID};
+            context.CustomerProducts.Add(reg);
             context.SaveChanges();
-            return RedirectToAction("MgrRegistration", views);
+            return RedirectToAction("RegProduct", views);
         }
+
+    [HttpGet]
+    public IActionResult Delete(int CustomerID, int ProductID)
+    {
+            return RedirectToAction("List");
+        //CustomerProduct cust = views.currentCustomer;
+        //context.CustomerProducts.Add(cust);
+        //context.SaveChanges();
+        //return RedirectToAction("List", views);
+    }
     }
 }

@@ -18,7 +18,9 @@
             {
                 <tr>
                     <td>@cust.Product.Name<td>
-                        <form asp-action="" asp-route-id="@cust.ProductID" asp method="get">
+                        <form asp-action="Delete" asp-route-id="@cust.ProductID" asp method="get">
+                            <input type="hidden" name="ProductID" value="@cust.ProductID" />
+                            <input type="hidden" name="CustomerID" value="@cust.CustomerID" />
                             <input type="submit" value="Delete" class="btn btn-primary" />
                         </form>
                     </tr>
@@ -26,7 +28,8 @@
         </tbody>
     </table>
 
-    <form asp-action="MgrRegistration" method="post">
+    <form asp-action="RegProduct" method="post">
+        <input type="hidden" asp-for="CustomerID" />
         <div class="form-group">
             <label name="Product" class="control-label"></label>
             <select name="ProductID" type="number" class="form-control"

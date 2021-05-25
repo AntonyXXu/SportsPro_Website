@@ -10,6 +10,10 @@ namespace SportsPro.Models
     {
 		public ICollection<CustomerProduct> CustomerProducts { get; set; }
 
-        public CustomerProduct currentCustomer { get; set; }
+        public int CustomerID { get; set; }
+        public int ProductID { get; set; }
+
+        public Customer Customer { get; set; }
+        
     }
 }
