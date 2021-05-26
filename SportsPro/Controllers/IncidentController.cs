@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SportsPro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using SportsPro.Models.ViewModels;
 
 namespace SportsPro.Controllers
 {
@@ -92,8 +93,12 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult ListByTech()
         {
-            ViewBag.Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
-            return View();
+            TechniciansViewModel textvm = new TechniciansViewModel()
+            {
+                Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>()).ToList()
+            };
+            //var technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
+            return View(textvm);
         }
 
         [HttpGet]
@@ -106,7 +111,7 @@ namespace SportsPro.Controllers
                 OrderBy = inc => inc.DateOpened
             };
 
-            ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID).Name;
+            ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID)?.Name?? "You did not select a technician";
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = sportsUnit.Incidents.List(query);
             http.HttpContext.Session.SetInt32("techID", TechnicianID);
@@ -122,6 +127,7 @@ namespace SportsPro.Controllers
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Insert(incident);
                 sportsUnit.save();
+                TempData["message"] = $"{incident.Title} was successfully added";
                 return RedirectToAction("List", "Incident");
             }
             catch
@@ -138,6 +144,7 @@ namespace SportsPro.Controllers
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Update(incident);
                 sportsUnit.save();
+                TempData["message"] = $"{incident.Title} was successfully updated";
                 int? techID = http.HttpContext.Session.GetInt32("techID");
                 if (dest != null)
                 {
@@ -159,6 +166,7 @@ namespace SportsPro.Controllers
                 Incident incident = sportsUnit.Incidents.Get(id);
                 sportsUnit.Incidents.Delete(incident);
                 sportsUnit.save();
+                TempData["message"] = $"{incident.Title} was successfully deleted";
                 return RedirectToAction("List", "Incident");
             }
             catch

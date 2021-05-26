@@ -45,6 +45,7 @@ namespace SportsPro.Controllers
             {
                 sportsUnit.Customers.Insert(cust);
                 sportsUnit.Customers.Save();
+                TempData["message"] = $"{cust.FullName} was successfully added";
                 return RedirectToAction("List", "Customer");
             }
             catch
@@ -60,6 +61,7 @@ namespace SportsPro.Controllers
             {
                 sportsUnit.Customers.Update(cust);
                 sportsUnit.Customers.Save();
+                TempData["message"] = $"{cust.FullName} was successfully updated";
                 return RedirectToAction("List", "Customer");
             }
             catch
@@ -77,6 +79,7 @@ namespace SportsPro.Controllers
                 Customer cust = sportsUnit.Customers.Get(id);
                 sportsUnit.Customers.Delete(cust);
                 sportsUnit.Customers.Save();
+                TempData["message"] = $"{cust.FullName} was successfully deleted";
                 return RedirectToAction("List", "Customer");
             }
             catch

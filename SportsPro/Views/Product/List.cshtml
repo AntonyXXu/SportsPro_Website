@@ -4,12 +4,12 @@
 }
 
 <h1>Product List</h1>
-@if (TempData.Keys.Contains("message"))
+@*@if (TempData.Keys.Contains("message"))
 {
     <h4 class="bg-info text-center text-white p-2">
         @TempData["message"]
     </h4>
-}
+}*@
 
 <form asp-action="Add" asp method="get">
     <input type="submit" value="Add new Product" class="btn btn-primary" />
