@@ -96,8 +96,7 @@ namespace SportsPro.Controllers
             TechniciansViewModel textvm = new TechniciansViewModel()
             {
                 Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>()).ToList()
-            };
-            //var technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
+            };   
             return View(textvm);
         }
 
