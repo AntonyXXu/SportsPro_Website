@@ -29,9 +29,9 @@ namespace SportsPro.Controllers
             if (ModelState.IsValid)
             {
                 var user = new SportsPro.Models.User { 
-                    UserName = model.Username,
-                    Firstname = model.Firstname,
-                    Lastname = model.Lastname,
+                    UserName = model.UserName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Email = model.Email
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
