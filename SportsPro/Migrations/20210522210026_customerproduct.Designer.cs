@@ -665,6 +665,7 @@ namespace SportsPro.Migrations
                         .IsRequired();
 
                     //b.Navigation("Country");
+                    //sss
                 });
 
             modelBuilder.Entity("SportsPro.Models.CustomerProduct", b =>
