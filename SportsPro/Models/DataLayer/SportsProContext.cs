@@ -23,34 +23,14 @@ namespace SportsPro.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.ApplyConfiguration(new SeedProduct());
+            modelBuilder.ApplyConfiguration(new SeedProduct());
             modelBuilder.ApplyConfiguration(new SeedTechnician());
             modelBuilder.ApplyConfiguration(new SeedCountry());
             modelBuilder.ApplyConfiguration(new SeedCustomer());
             modelBuilder.ApplyConfiguration(new SeedIncident());
+            modelBuilder.ApplyConfiguration(new SeedCustomerProduct());
 
-            modelBuilder.Entity<CustomerProduct>().HasKey(cr => new { cr.ProductID, cr.CustomerID });
-
-            modelBuilder.Entity<CustomerProduct>().HasOne(cr => cr.Product)
-                .WithMany(b => b.CustomerProducts)
-                .HasForeignKey(cr => cr.ProductID);
-            modelBuilder.Entity<CustomerProduct>().HasOne(cr => cr.Customer)
-                .WithMany(a => a.CustomerProducts)
-                .HasForeignKey(cr => cr.CustomerID);
-
-            modelBuilder.Entity<CustomerProduct>().HasData(
-                new CustomerProduct
-                {
-                    ProductID = 4,
-                    CustomerID = 1002
-                },
-                new CustomerProduct
-                {
-                    ProductID = 3,
-                    CustomerID = 1010
-                }
-            );
-
+            
             //modelBuilder.Entity<Product>().HasData(
             //    new Product
             //    {
