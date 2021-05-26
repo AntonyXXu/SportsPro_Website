@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SportsPro.Models;
 using System;
+//using SportsPro.DataLayer.Repositories;
 
 namespace SportsPro
 {
@@ -91,6 +92,8 @@ namespace SportsPro
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            SportsProContext.CreateAdminUser(app.ApplicationServices).Wait();
         }
     }
 }
