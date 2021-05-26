@@ -13,6 +13,7 @@ namespace SportsPro.Models
         IRepository<Country> Countries { get; }
         IRepository<Technician> Technicians { get; }
         IRepository<User> Users { get; }
+        IRepository<CustomerProduct> CustomerProducts { get; }
 
         void save();
 

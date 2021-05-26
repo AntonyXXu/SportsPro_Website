@@ -8,7 +8,7 @@ namespace SportsPro.Models
 {
     public class MgrRegistrationModel
     {
-		public ICollection<CustomerProduct> CustomerProducts { get; set; }
+		public IEnumerable<CustomerProduct> CustomerProducts { get; set; }
 
         public int CustomerID { get; set; }
         public int ProductID { get; set; }

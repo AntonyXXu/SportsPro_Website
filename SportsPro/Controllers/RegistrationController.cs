@@ -11,6 +11,14 @@ namespace SportsPro.Controllers
 {
     public class RegistrationController : Controller
     {
+        private ISportsUnitWork sportsUnit;
+        private IHttpContextAccessor http;
+        public RegistrationController(ISportsUnitWork ctx, IHttpContextAccessor httpctx)
+        {
+            sportsUnit = ctx;
+            http = httpctx;
+        }
+
         private SportsProContext context { get; set; }
         public RegistrationController(SportsProContext ctx)
         {
@@ -21,7 +29,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult List()
         {
-            ViewBag.Customers = context.Customers.ToList();
+            ViewBag.Customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View();
         }
     
@@ -29,29 +37,42 @@ namespace SportsPro.Controllers
     [HttpGet]
     public IActionResult RegProduct(int CustomerID)
     {
-        List<CustomerProduct> cust = context.CustomerProducts
-            .Where(c => c.CustomerID == CustomerID)
-            .Include(c => c.Product)
-            .ToList();
-        ViewBag.CustomerName = context.Customers.Find(CustomerID).FullName;
-        ViewBag.Products = context.Products.ToList();
-        MgrRegistrationModel views = new MgrRegistrationModel();
-        views.CustomerProducts = cust;
+            QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
+            {
+                Where = inc => inc.CustomerID == CustomerID,
+                Includes = "Customer, Product"
+            };
 
-        return View(views);
-    }
+            ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
+            MgrRegistrationModel views = new MgrRegistrationModel();
+            views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
+            
+            return View(views);
+
+            //List<CustomerProduct> cust = context.CustomerProducts
+            //    .Where(c => c.CustomerID == CustomerID)
+            //    .Include(c => c.Product)
+            //    .ToList();
+            //ViewBag.CustomerName = context.Customers.Find(CustomerID).FullName;
+            //ViewBag.Products = context.Products.ToList();
+            //MgrRegistrationModel views = new MgrRegistrationModel();
+            //views.CustomerProducts = cust;
+
+            //return View(views);
+        }
         [HttpPost]
         public IActionResult RegProduct(MgrRegistrationModel views)
         {
             var reg = new CustomerProduct(){ ProductID = views.ProductID, CustomerID = views.CustomerID};
-            context.CustomerProducts.Add(reg);
-            context.SaveChanges();
+            sportsUnit.CustomerProducts.Insert(reg);
+            sportsUnit.save();
             return RedirectToAction("RegProduct", views);
         }
 
     [HttpGet]
     public IActionResult Delete(int CustomerID, int ProductID)
     {
+            
             return RedirectToAction("List");
         //CustomerProduct cust = views.currentCustomer;
         //context.CustomerProducts.Add(cust);
