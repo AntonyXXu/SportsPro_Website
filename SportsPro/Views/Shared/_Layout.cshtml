@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.ViewFeatures;
+@using Microsoft.AspNetCore.Mvc.Rendering; 
+
 @inject SignInManager<User> signInManager
 @{
     string controller =
@@ -18,8 +21,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @{if (action == "Add" || action == "Edit")
         {
-            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-            <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+            //using the partial view to retrieve the jQuery libraries for data validation
+            <partial name="_ValidationScriptsPartial" />
         }
     }
     <link rel="stylesheet" href="~/css/site.css" />
@@ -28,21 +31,25 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
             <a class="navbar-brand" href="/">SportsPro</a>
-            <button class="navbar-toggler" type="button"
-                    data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+           
+
+            @*Replace navbarbutton with a view*@
+            <partial name="_NavbarMenuButtonPartial" />
+
+            @*Navbar use a taghelper to show active link*@
+
             <nav class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link @(controller == "Home" && action == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="nav-item nav-link @(controller == "Product" ? "active" : "")" asp-controller="Product" asp-action="List">Products</a>
-                    <a class="nav-item nav-link @(controller == "Technician" ? "active" : "")" asp-controller="Technician" asp-action="List">Technicians</a>
-                    <a class="nav-item nav-link @(controller == "Customer" ? "active" : "")" asp-controller="Customer" asp-action="List">Customers</a>
-                    <a class="nav-item nav-link @(controller == "Incident" && action != "ListByTech" ? "active" : "")" asp-controller="Incident" asp-action="List">Incidents</a>
-                    <a class="nav-item nav-link @(controller == "Incident" && action == "ListByTech" ? "active" : "")" asp-controller="Incident" asp-action="ListByTech">Update Incidents</a>
-                    <a class="nav-item nav-link @(controller == "Registration" ? "active" : "")" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                    <a class="nav-item nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-item nav-link" asp-controller="Product" asp-action="List">Products</a>
+                    <a class="nav-item nav-link" asp-controller="Technician" asp-action="List">Technicians</a>
+                    <a class="nav-item nav-link" asp-controller="Customer" asp-action="List">Customers</a>
+                    <a class="nav-item nav-link" asp-controller="Incident" asp-action="List">Incidents</a>
+                    <a class="nav-item nav-link" asp-controller="Incident" asp-action="ListByTech">Update Incidents</a>
+                    <a class="nav-item nav-link" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+
+
+                    
                 </div>
                 <div class="navbar-nav navbar-right">
                     @if (signInManager.IsSignedIn(User))
@@ -63,6 +70,8 @@
                         var newAction = ViewContext.RouteData.Values["action"]?.ToString();
 
                         // anonymous user - Register link and Log In button
+                        
+
                         <li class="nav-item @Nav.Active("Register", newAction)">
                             <a asp-action="Register" asp-controller="Account"
                                asp-area="" class="nav-link">Register</a>
@@ -74,18 +83,27 @@
                         </li>
                     }
                     <a class="nav-item nav-link active" asp-controller="Home" asp-action="About">About</a>
-                </div>
+                    </div>
             </nav>
         </nav>
+    
+
     </header>
     <div class="container">
         <main role="main" class="pb-5">
+
+            @*show if any message in TempData using partial view*@
+            <my-temp-message />
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">&copy; @DateTime.Now.Year - SportsPro</div>
+        <div class="container">
+
+            @*Show copy right message using partial view*@
+            <partial name="_CopyRightInfo" />
+        </div>
     </footer>
 </body>
 </html>

@@ -14,15 +14,29 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.Customer" class="control-label"></label>
-        <select asp-for="@Model.currentIncident.CustomerID" class="form-control"
+        @*<select asp-for="@Model.currentIncident.CustomerID" class="form-control"
                 asp-items="@(new SelectList(Model.customers, "CustomerID", "FullName", Model.currentIncident.CustomerID.ToString()))">
+        </select>*@
+
+        <select asp-for="@Model.currentIncident.CustomerID" class="form-control">
+            <vc:customer-drop-down-options value="@Model.currentIncident.CustomerID"
+                                          default-value=""
+                                          default-text="Select a Customer Name..." />
         </select>
+
+
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.Product" class="control-label"></label>
-        <select asp-for="@Model.currentIncident.ProductID" class="form-control"
-                asp-items="@(new SelectList(Model.products, "ProductID", "Name", Model.currentIncident.ProductID.ToString()))">
-        </select>
+        @*<select asp-for="@Model.currentIncident.ProductID" class="form-control"
+                asp-items="@(new SelectList(Model.products, "ProductID", "Name", Model.currentIncident.ProductID.ToString()))">*@
+       
+        <select asp-for="@Model.currentIncident.ProductID" class="form-control">
+            <vc:product-drop-down-options value="@Model.currentIncident.ProductID"
+                                         default-value=""
+                                         default-text="Select a product..." />
+            </select>
 
     </div>
     <div class="form-group">
@@ -37,10 +51,15 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.TechnicianID" class="control-label"></label>
-        <select asp-for="@Model.currentIncident.TechnicianID" class="form-control"
-                asp-items="@(new SelectList(Model.technicians, "TechnicianID", "Name", Model.currentIncident.TechnicianID))">
-            <option selected></option>
-        </select>
+        @*<select asp-for="@Model.currentIncident.TechnicianID" class="form-control"
+                asp-items="@(new SelectList(Model.technicians, "TechnicianID", "Name", Model.currentIncident.TechnicianID))">*@
+
+        <select asp-for="@Model.currentIncident.TechnicianID" class="form-control">
+            <vc:technician-drop-down value="@Model.currentIncident.TechnicianID"
+                                         default-value=""
+                                         default-text="Select a technician..." />
+                @*<option selected></option>*@
+            </select>
     </div>
     <div class="form-group">
         <label asp-for="@Model.currentIncident.DateOpened" class="control-label"></label>
