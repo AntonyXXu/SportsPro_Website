@@ -43,6 +43,7 @@ namespace SportsPro.Controllers
             {
                 technicians.Insert(tech);
                 technicians.Save();
+                TempData["message"] = $"{tech.Name} was successfully added";
                 return RedirectToAction("List", "Technician");
             }
             catch
@@ -58,6 +59,7 @@ namespace SportsPro.Controllers
             {
                 technicians.Update(tech);
                 technicians.Save();
+                TempData["message"] = $"{tech.Name} was successfully updated";
                 return RedirectToAction("List", "Technician");
             }
             catch
@@ -74,6 +76,7 @@ namespace SportsPro.Controllers
                 Technician tech = technicians.Get(id);
                 technicians.Delete(tech);
                 technicians.Save();
+                TempData["message"] = $"{tech.Name} was successfully deleted";
                 return RedirectToAction("List", "Technician");
             }
             catch
