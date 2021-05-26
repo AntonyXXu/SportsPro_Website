@@ -15,7 +15,7 @@ namespace SportsPro.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -514,6 +514,33 @@ namespace SportsPro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SportsPro.Models.CustomerProduct", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID", "CustomerID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("CustomerProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductID = 4,
+                            CustomerID = 1002
+                        },
+                        new
+                        {
+                            ProductID = 3,
+                            CustomerID = 1010
+                        });
+                });
+
             modelBuilder.Entity("SportsPro.Models.Incident", b =>
                 {
                     b.Property<int>("IncidentID")
@@ -870,6 +897,21 @@ namespace SportsPro.Migrations
                     b.HasOne("SportsPro.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SportsPro.Models.CustomerProduct", b =>
+                {
+                    b.HasOne("SportsPro.Models.Customer", "Customer")
+                        .WithMany("CustomerProducts")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SportsPro.Models.Product", "Product")
+                        .WithMany("CustomerProducts")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

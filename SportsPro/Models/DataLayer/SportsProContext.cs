@@ -17,18 +17,20 @@ namespace SportsPro.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Incident> Incidents { get; set; }
+        public DbSet<CustomerProduct> CustomerProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.ApplyConfiguration(new SeedProduct());
+            modelBuilder.ApplyConfiguration(new SeedProduct());
             modelBuilder.ApplyConfiguration(new SeedTechnician());
             modelBuilder.ApplyConfiguration(new SeedCountry());
             modelBuilder.ApplyConfiguration(new SeedCustomer());
             modelBuilder.ApplyConfiguration(new SeedIncident());
+            modelBuilder.ApplyConfiguration(new SeedCustomerProduct());
 
-
+            
             //modelBuilder.Entity<Product>().HasData(
             //    new Product
             //    {
