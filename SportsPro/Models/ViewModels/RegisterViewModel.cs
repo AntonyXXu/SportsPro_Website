@@ -10,15 +10,15 @@ namespace SportsPro.Models
     {
         [Required(ErrorMessage = "Please enter a username.")]
         [StringLength(255)]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Please enter a first name.")]
         [StringLength(255)]
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Please enter a last name.")]
         [StringLength(255)]
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please enter an email address.")]
         [DataType(DataType.EmailAddress)]

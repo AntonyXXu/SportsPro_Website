@@ -10,8 +10,8 @@ namespace SportsPro.Models
     public class User : IdentityUser
     {
         //Inherits all IdentityUser properties
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         [NotMapped]
         public IList<string> RoleNames { get; set; }
