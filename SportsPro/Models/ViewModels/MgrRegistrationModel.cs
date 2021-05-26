@@ -13,7 +13,9 @@ namespace SportsPro.Models
         public int CustomerID { get; set; }
         public int ProductID { get; set; }
 
-        public Customer Customer { get; set; }
+        public Customer Customers { get; set; }
+
+        public Product Products { get; set; }
         
     }
 }
