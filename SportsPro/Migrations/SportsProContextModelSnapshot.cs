@@ -895,7 +895,6 @@ namespace SportsPro.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("SportsPro.Models.CustomerProduct", b =>
@@ -912,9 +911,7 @@ namespace SportsPro.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
 
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SportsPro.Models.Incident", b =>
@@ -935,22 +932,17 @@ namespace SportsPro.Migrations
                         .WithMany()
                         .HasForeignKey("TechnicianID");
 
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Technician");
                 });
 
-            modelBuilder.Entity("SportsPro.Models.Customer", b =>
-                {
-                    b.Navigation("CustomerProducts");
-                });
+            //modelBuilder.Entity("SportsPro.Models.Customer", b =>
+            //    {
+            //        b.Navigation("CustomerProducts");
+            //    });
 
-            modelBuilder.Entity("SportsPro.Models.Product", b =>
-                {
-                    b.Navigation("CustomerProducts");
-                });
+            //modelBuilder.Entity("SportsPro.Models.Product", b =>
+            //    {
+            //        b.Navigation("CustomerProducts");
+            //    });
 #pragma warning restore 612, 618
         }
     }
