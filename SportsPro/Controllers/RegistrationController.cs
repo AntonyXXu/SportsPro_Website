@@ -26,6 +26,16 @@ namespace SportsPro.Controllers
             ViewBag.Customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View();
         }
+        //[HttpPost]
+        //public IActionResult List(MgrRegistrationModel currentCustomer)
+        //{
+        //    var session = new MySession(HttpContext.Session);
+        //    var sessionCust = session.GetCustomer();
+        //    sessionCust = sportsUnit.Customers.Get(currentCustomer.Customers.CustomerID);
+        //    session.SetCustomer(sessionCust);
+        //    return RedirectToAction("RegProduct", "Registration");
+
+        //}
     
     
         [HttpGet]
@@ -40,6 +50,7 @@ namespace SportsPro.Controllers
                 ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
                 MgrRegistrationModel views = new MgrRegistrationModel();
                 views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
+                http.HttpContext.Session.SetInt32("custID", CustomerID);
 
             return View(views);
             }
@@ -63,8 +74,8 @@ namespace SportsPro.Controllers
                 };
                 sportsUnit.CustomerProducts.Delete(cust);
                 sportsUnit.save();
-                
-                return RedirectToAction("RegProduct", "Registration");
+                int? custID = http.HttpContext.Session.GetInt32("custID");
+                return RedirectToAction("RegProduct", "Registration", new { CustomerID = custID });
         }
         }
 }
