@@ -8,12 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace SportsPro.Models
+namespace SportsPro.Models.DataLayer.SeedData
 {
     internal class SeedCountry : IEntityTypeConfiguration<Country>
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {
+            //Initialize countries data
             builder.HasData(
                 new Country { CountryID = "AU", Name = "Australia" },
                 new Country { CountryID = "AT", Name = "Austria" },
