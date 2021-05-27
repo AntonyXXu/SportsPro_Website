@@ -14,6 +14,7 @@ namespace SportsPro.Models
     {
         public void Configure(EntityTypeBuilder<Technician> builder)
         {
+            // Initialize data for Technician
             builder.HasData(
                 new Technician
                 {
