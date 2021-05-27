@@ -25,11 +25,12 @@ namespace SportsPro.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.ApplyConfiguration(new SeedProduct());
+            modelBuilder.ApplyConfiguration(new SeedProduct());
             modelBuilder.ApplyConfiguration(new SeedTechnician());
             modelBuilder.ApplyConfiguration(new SeedCountry());
             modelBuilder.ApplyConfiguration(new SeedCustomer());
             modelBuilder.ApplyConfiguration(new SeedIncident());
+            modelBuilder.ApplyConfiguration(new SeedCustomerProduct());
 
             modelBuilder.Entity<CustomerProduct>().HasKey(cr => new { cr.ProductID, cr.CustomerID });
 
@@ -60,6 +61,27 @@ namespace SportsPro.Models
             serviceProvider.GetRequiredService<UserManager<User>>();
             RoleManager<IdentityRole> roleManager =
             serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            //        Name = "Team Manager 1.0",
+            //        YearlyPrice = 4.99M,
+            //        ReleaseDate = DateTime.Parse("2017-05-01 00:00:00.000")
+            //    },
+            //    new Product
+            //    {
+            //        ProductID = 6,
+            //        ProductCode = "TRNY10",
+            //        Name = "Tournament Master 1.0",
+            //        YearlyPrice = 4.99M,
+            //        ReleaseDate = DateTime.Parse("2015-12-01 00:00:00.000")
+            //    },
+            //    new Product
+            //    {
+            //        ProductID = 7,
+            //        ProductCode = "TRNY20",
+            //        Name = "Tournament Master 2.0",
+            //        YearlyPrice = 5.99M,
+            //        ReleaseDate = DateTime.Parse("2018-02-15 00:00:00.000")
+            //    }
+            //);
 
             string username = "admin";
             string password = "Sesame";

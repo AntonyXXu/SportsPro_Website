@@ -11,52 +11,71 @@ namespace SportsPro.Controllers
 {
     public class RegistrationController : Controller
     {
-        private SportsProContext context { get; set; }
-        public RegistrationController(SportsProContext ctx)
+        private ISportsUnitWork sportsUnit;
+        private IHttpContextAccessor http;
+        public RegistrationController(ISportsUnitWork ctx, IHttpContextAccessor httpctx)
         {
-            context = ctx;
+            sportsUnit = ctx;
+            http = httpctx;
         }
 
         [Route("getcustomer")]
         [HttpGet]
         public IActionResult List()
         {
-            ViewBag.Customers = context.Customers.ToList();
+            ViewBag.Customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View();
         }
-    
-    
-    [HttpGet]
-    public IActionResult RegProduct(int CustomerID)
-    {
-        List<CustomerProduct> cust = context.CustomerProducts
-            .Where(c => c.CustomerID == CustomerID)
-            .Include(c => c.Product)
-            .ToList();
-        ViewBag.CustomerName = context.Customers.Find(CustomerID).FullName;
-        ViewBag.Products = context.Products.ToList();
-        MgrRegistrationModel views = new MgrRegistrationModel();
-        views.CustomerProducts = cust;
+        //[HttpPost]
+        //public IActionResult List(MgrRegistrationModel currentCustomer)
+        //{
+        //    var session = new MySession(HttpContext.Session);
+        //    var sessionCust = session.GetCustomer();
+        //    sessionCust = sportsUnit.Customers.Get(currentCustomer.Customers.CustomerID);
+        //    session.SetCustomer(sessionCust);
+        //    return RedirectToAction("RegProduct", "Registration");
 
-        return View(views);
-    }
+        //}
+    
+    
+        [HttpGet]
+        public IActionResult RegProduct(int CustomerID)
+        {
+                QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
+                {
+                    Where = inc => inc.CustomerID == CustomerID,
+                    Includes = "Customer, Product"
+                };
+                ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
+                ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
+                MgrRegistrationModel views = new MgrRegistrationModel();
+                views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
+                http.HttpContext.Session.SetInt32("custID", CustomerID);
+
+            return View(views);
+            }
+
         [HttpPost]
         public IActionResult RegProduct(MgrRegistrationModel views)
         {
             var reg = new CustomerProduct(){ ProductID = views.ProductID, CustomerID = views.CustomerID};
-            context.CustomerProducts.Add(reg);
-            context.SaveChanges();
+            sportsUnit.CustomerProducts.Insert(reg);
+            sportsUnit.save();
             return RedirectToAction("RegProduct", views);
         }
 
-    [HttpGet]
-    public IActionResult Delete(int CustomerID, int ProductID)
-    {
-            return RedirectToAction("List");
-        //CustomerProduct cust = views.currentCustomer;
-        //context.CustomerProducts.Add(cust);
-        //context.SaveChanges();
-        //return RedirectToAction("List", views);
-    }
-    }
+        [HttpPost]
+        public IActionResult Delete(int CustomerID, int ProductID, int? dest)
+        {
+                CustomerProduct cust = new CustomerProduct()
+                {
+                    CustomerID = CustomerID,
+                    ProductID = ProductID
+                };
+                sportsUnit.CustomerProducts.Delete(cust);
+                sportsUnit.save();
+                int? custID = http.HttpContext.Session.GetInt32("custID");
+                return RedirectToAction("RegProduct", "Registration", new { CustomerID = custID });
+        }
+        }
 }

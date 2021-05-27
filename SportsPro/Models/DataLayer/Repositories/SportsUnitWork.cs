@@ -91,6 +91,18 @@ namespace SportsPro.Models
                 return userData;
             }
         }
+        private IRepository<CustomerProduct> customerproductData;
+        public IRepository<CustomerProduct> CustomerProducts
+        {
+            get
+            {
+                if (customerproductData == null)
+                {
+                    customerproductData = new Repository<CustomerProduct>(context);
+                }
+                return customerproductData;
+            }
+        }
 
         public void save()
         {
