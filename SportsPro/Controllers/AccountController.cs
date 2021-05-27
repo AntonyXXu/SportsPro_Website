@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SportsPro.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportsPro.Controllers
 {

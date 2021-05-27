@@ -7,9 +7,11 @@ using SportsPro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using SportsPro.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportsPro.Controllers
 {
+    [Authorize()]
     public class IncidentController : Controller
     {
         // Initialize sportsUnit and the sessions http
@@ -25,14 +27,14 @@ namespace SportsPro.Controllers
         public IActionResult List(string filter = "All")
         {
 
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else if (!User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else if (!User.IsInRole("Admin"))
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
             // Return list of incidents with customer and product data
             QueryOptions<Incident> query = new QueryOptions<Incident>
             {

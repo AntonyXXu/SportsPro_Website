@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SportsPro.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportsPro.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TechnicianController : Controller
     {
         // Initialize a repository interface of Technicians
@@ -19,15 +21,14 @@ namespace SportsPro.Controllers
         [Route("technicians")]
         public IActionResult List()
         {
-
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else if (!User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else if (!User.IsInRole("Admin"))
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
             //Query a list of Technicians
             IEnumerable<Technician> techs = technicians.List(new QueryOptions<Technician>());
             return View(techs);

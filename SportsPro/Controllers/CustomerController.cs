@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SportsPro.Models;
-
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportsPro.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class CustomerController : Controller
     {
 
@@ -25,14 +24,14 @@ namespace SportsPro.Controllers
         public IActionResult List()
         {
 
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else if (!User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else if (!User.IsInRole("Admin"))
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
             // Query list of all customers
             IEnumerable<Customer> cust = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View(cust);

@@ -93,6 +93,8 @@ namespace SportsPro
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            SportsProContext.CreateAdminUser(app.ApplicationServices).Wait();
         }
     }
 }
