@@ -34,8 +34,10 @@ namespace SportsPro
 
             services.AddControllersWithViews();
 
+            // Services with unit work or repo interfaces
             services.AddTransient<ISportsUnitWork, SportsUnitWork>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            // Services include http accessor for sessions
             services.AddHttpContextAccessor();
 
             services.AddDbContext<SportsProContext>(options =>

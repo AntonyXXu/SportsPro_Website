@@ -9,6 +9,7 @@ namespace SportsPro.Controllers
 {
     public class TechnicianController : Controller
     {
+        // Initialize a repository interface of Technicians
         private IRepository<Technician> technicians;
         public TechnicianController(IRepository<Technician> tech)
         {
@@ -18,6 +19,7 @@ namespace SportsPro.Controllers
         [Route("technicians")]
         public IActionResult List()
         {
+            //Query a list of Technicians
             IEnumerable<Technician> techs = technicians.List(new QueryOptions<Technician>());
             return View(techs);
         }
@@ -26,12 +28,14 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            // Create a new technician
             return View(new Technician());
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            // update  technician
             Technician tech = technicians.Get(id);
             return View(tech);
         }
@@ -41,6 +45,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // save new tech into db
                 technicians.Insert(tech);
                 technicians.Save();
                 TempData["message"] = $"{tech.Name} was successfully added";
@@ -57,6 +62,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // update tech into db
                 technicians.Update(tech);
                 technicians.Save();
                 TempData["message"] = $"{tech.Name} was successfully updated";
@@ -73,6 +79,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // delete tech from db
                 Technician tech = technicians.Get(id);
                 technicians.Delete(tech);
                 technicians.Save();

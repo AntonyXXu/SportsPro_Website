@@ -8,12 +8,14 @@ namespace SportsPro.Models
 {
     public class SportsUnitWork : ISportsUnitWork
     {
+        //Initialize contexts
         private SportsProContext context { get; set; }
         public SportsUnitWork(SportsProContext ctx)
         {
             context = ctx;
         }
 
+        // All get a repository (if it exists). Otherwise create a new one
         private IRepository<Customer> customerData;
         public IRepository<Customer> Customers
         {
@@ -104,6 +106,7 @@ namespace SportsPro.Models
             }
         }
 
+        // Save the changes in the context
         public void save()
         {
             context.SaveChanges();

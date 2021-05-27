@@ -9,8 +9,8 @@ namespace SportsPro.Controllers
 {
     public class ProductController : Controller
     {
+        // Initialize a repository interface of products
         private IRepository<Product> products;
-
         public ProductController(IRepository<Product> prod)
         {
             products = prod;
@@ -19,6 +19,7 @@ namespace SportsPro.Controllers
         [Route("products")]
         public IActionResult List()
         {
+            //Query a list of products
             IEnumerable<Product> prod = products.List(new QueryOptions<Product>());
             return View(prod);
         }
@@ -26,12 +27,14 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            // Create a new product
             return View(new Product());
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            // Update existing product
             Product prod = products.Get(id);
             return View(prod);
         }
@@ -41,6 +44,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // Save into database. Send a message to update
                 products.Insert(prod);
                 products.Save();
                 TempData["message"] = $"{prod.Name} was successfully added";
@@ -57,6 +61,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // Save into database. send a message to update
                 products.Update(prod);
                 products.Save();
                 TempData["message"] = $"{prod.Name} was successfully updated";
@@ -73,6 +78,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // delete entry from database. send a message to update
                 Product prod = products.Get(id);
                 products.Delete(prod);
                 products.Save();

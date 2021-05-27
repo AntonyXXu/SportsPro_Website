@@ -9,6 +9,7 @@ namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
+        // Initialize sports unit
         private ISportsUnitWork sportsUnit { get; set; }
         public CustomerController(ISportsUnitWork sports)
         {
@@ -18,6 +19,7 @@ namespace SportsPro.Controllers
         [Route("customers")]
         public IActionResult List()
         {
+            // Query list of all customers
             IEnumerable<Customer> cust = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View(cust);
         }
@@ -25,6 +27,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            // Query list of all countries and return page with new customer
             ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
             Customer cust = new Customer();
             return View(cust);
@@ -33,6 +36,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            // Query list of all countries and return page with selected customer
             ViewBag.Country = sportsUnit.Countries.List(new QueryOptions<Country>());
             Customer cust = sportsUnit.Customers.Get(id);
             return View(cust);
@@ -43,6 +47,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // Save the customer within the context
                 sportsUnit.Customers.Insert(cust);
                 sportsUnit.Customers.Save();
                 TempData["message"] = $"{cust.FullName} was successfully added";
@@ -59,6 +64,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                //Update the customer within the context
                 sportsUnit.Customers.Update(cust);
                 sportsUnit.Customers.Save();
                 TempData["message"] = $"{cust.FullName} was successfully updated";
@@ -76,6 +82,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // Remove the customer from the context
                 Customer cust = sportsUnit.Customers.Get(id);
                 sportsUnit.Customers.Delete(cust);
                 sportsUnit.Customers.Save();

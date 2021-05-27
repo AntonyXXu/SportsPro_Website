@@ -14,12 +14,14 @@ namespace SportsPro.Models.DataLayer.SeedData
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
+            // Define customer relationship. One cust has one country
             builder.HasOne(c => c.Country)
                         .WithMany()
                         .HasForeignKey("CountryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+            //Initialize customers data
             builder.HasData(
                  new Customer
                  {

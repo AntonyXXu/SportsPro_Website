@@ -14,6 +14,7 @@ namespace SportsPro.Models.DataLayer.SeedData
     {
         public void Configure(EntityTypeBuilder<Technician> builder)
         {
+            // Initialize data for Technician
             builder.HasData(
                 new Technician
                 {
