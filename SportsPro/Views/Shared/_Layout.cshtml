@@ -50,14 +50,17 @@
                         <a class="nav-item nav-link" asp-controller="TechIncident" asp-action="ListByTech">Update Incidents</a>
                         <a class="nav-item nav-link" asp-controller="Registration" asp-action="List">Registrations</a>
                     }
-                    else if (User.IsInRole("Technician"))
+                    else if (signInManager.IsSignedIn(User))
                     {
                         <a class="nav-item nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         <a class="nav-item nav-link" asp-controller="TechIncident" asp-action="ListByTech">Update Incidents</a>
+                        <span class="text-light">Welcome @User.Identity.Name</span>
+                        
                     }
                     else
                     {
                         <a class="nav-item nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        
                     }
 
 
