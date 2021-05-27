@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace SportsPro.Models
 {
+    // Unit work interface to access IRepositories for updating database.
+    // Used for when there are changes/queries required in multiple db tables
     public interface ISportsUnitWork
     {
         IRepository<Customer> Customers {get;}

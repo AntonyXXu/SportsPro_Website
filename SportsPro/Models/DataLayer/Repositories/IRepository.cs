@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace SportsPro.Models
 {
+    // Repository interface to add, upate, delete, save changes in the database
+    // Used for individual tables
     public interface IRepository<T> where T: class
     {
         IEnumerable<T> List(QueryOptions<T> options);

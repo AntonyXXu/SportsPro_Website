@@ -12,6 +12,7 @@ namespace SportsPro.Controllers
 {
     public class IncidentController : Controller
     {
+        // Initialize sportsUnit and the sessions http
         private ISportsUnitWork sportsUnit;
         private IHttpContextAccessor http;
         public IncidentController(ISportsUnitWork ctx, IHttpContextAccessor httpctx)
@@ -23,6 +24,7 @@ namespace SportsPro.Controllers
         [Route("incidents")]
         public ViewResult List(string filter = "All")
         {
+            // Return list of incidents with customer and product data
             QueryOptions<Incident> query = new QueryOptions<Incident>
             {
                 Includes = "Customer, Product",
@@ -31,19 +33,25 @@ namespace SportsPro.Controllers
 
             if (filter == "Unassigned")
             {
+                // Query change where technicianID is not filled
                 query.Where = inc => inc.TechnicianID == null;
             }
             else if (filter == "Open")
             {
+                // Query change where date is after today
                 query.Where = inc => inc.DateClosed == null || inc.DateClosed >= DateTime.Today;
                 query.Where = inc => inc.TechnicianID != null;
             }
             else if (filter == "Closed")
             {
+                // Query change where date is date is before today
                 query.Where = inc => inc.DateClosed != null && inc.DateClosed < DateTime.Today;
             }
 
+            // Get a list of incidents with the query
             IEnumerable<Incident> incidents = sportsUnit.Incidents.List(query);
+            
+            // Initialize view model
             IncidentViewModel views = new IncidentViewModel();
             views.Filter = filter;
             views.Incidents = incidents;
@@ -54,6 +62,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            // Create a view model for add
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
             views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             views.products = sportsUnit.Products.List(new QueryOptions<Product>());
@@ -66,6 +75,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            // Create a view model for editing
             Incident inc = sportsUnit.Incidents.Get(id);
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
             views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
@@ -79,6 +89,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult EditTech(int id)
         {
+            // Create a view model for editing from a technician
             Incident inc = sportsUnit.Incidents.Get(id);
             IncidentAddEditViewModel views = new IncidentAddEditViewModel();
             views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
@@ -93,17 +104,18 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult ListByTech()
         {
+            //Initialize technician view model
             TechniciansViewModel textvm = new TechniciansViewModel()
             {
                 Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>()).ToList()
             };
-            //var technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
             return View(textvm);
         }
 
         [HttpGet]
         public IActionResult TechList(int TechnicianID)
         {
+            // Initialize query for list of the selected and their associated incidents
             QueryOptions<Incident> query = new QueryOptions<Incident>
             {
                 Where = inc => inc.TechnicianID == TechnicianID,
@@ -112,6 +124,7 @@ namespace SportsPro.Controllers
             };
 
             ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID)?.Name?? "You did not select a technician";
+            // initialize incident view model
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = sportsUnit.Incidents.List(query);
             http.HttpContext.Session.SetInt32("techID", TechnicianID);
@@ -124,6 +137,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // update the db context with added model
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Insert(incident);
                 sportsUnit.save();
@@ -141,6 +155,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // update the db context with editted model
                 Incident incident = views.currentIncident;
                 sportsUnit.Incidents.Update(incident);
                 sportsUnit.save();
@@ -163,6 +178,7 @@ namespace SportsPro.Controllers
         {
             try
             {
+                // update the db context with deleted model
                 Incident incident = sportsUnit.Incidents.Get(id);
                 sportsUnit.Incidents.Delete(incident);
                 sportsUnit.save();

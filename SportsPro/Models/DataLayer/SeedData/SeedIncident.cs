@@ -14,24 +14,27 @@ namespace SportsPro.Models
     {
         public void Configure(EntityTypeBuilder<Incident> builder)
         {
+            // Each incident must have one customer
             builder.HasOne("SportsPro.Models.Customer", "Customer")
                 .WithMany()
                 .HasForeignKey("CustomerID")
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
 
+            // Each incident must have one product
             builder.HasOne("SportsPro.Models.Product", "Product")
                 .WithMany()
                 .HasForeignKey("ProductID")
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
 
+            // Each incident must have one Technician
             builder.HasOne("SportsPro.Models.Technician", "Technician")
                 .WithMany()
                 .HasForeignKey("TechnicianID");
 
 
-
+            // Initialize data for incidents
             builder.HasData(
                   new Incident
                   {
