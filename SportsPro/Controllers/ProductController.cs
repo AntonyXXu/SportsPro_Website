@@ -27,7 +27,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            // Create a new products
+            // Create a new product
             return View(new Product());
         }
 
