@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace SportsPro.Controllers
 {
     [Authorize(Roles = "Admin")]
+
     public class TechnicianController : Controller
     {
         // Initialize a repository interface of Technicians

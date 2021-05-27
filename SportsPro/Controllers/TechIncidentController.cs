@@ -12,12 +12,12 @@ using Microsoft.AspNetCore.Authorization;
 namespace SportsPro.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class IncidentController : Controller
+    public class TechIncidentController : Controller
     {
         // Initialize sportsUnit and the sessions http
         private ISportsUnitWork sportsUnit;
         private IHttpContextAccessor http;
-        public IncidentController(ISportsUnitWork ctx, IHttpContextAccessor httpctx)
+        public TechIncidentController(ISportsUnitWork ctx, IHttpContextAccessor httpctx)
         {
             sportsUnit = ctx;
             http = httpctx;
