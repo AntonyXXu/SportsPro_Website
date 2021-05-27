@@ -22,8 +22,17 @@ namespace SportsPro.Controllers
         }
 
         [Route("incidents")]
-        public ViewResult List(string filter = "All")
+        public IActionResult List(string filter = "All")
         {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             // Return list of incidents with customer and product data
             QueryOptions<Incident> query = new QueryOptions<Incident>
             {
@@ -104,6 +113,15 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult ListByTech()
         {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             //Initialize technician view model
             TechniciansViewModel textvm = new TechniciansViewModel()
             {

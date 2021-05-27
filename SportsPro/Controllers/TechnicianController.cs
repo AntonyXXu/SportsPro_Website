@@ -19,6 +19,15 @@ namespace SportsPro.Controllers
         [Route("technicians")]
         public IActionResult List()
         {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             //Query a list of Technicians
             IEnumerable<Technician> techs = technicians.List(new QueryOptions<Technician>());
             return View(techs);
