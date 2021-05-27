@@ -14,6 +14,7 @@ namespace SportsPro.Models.DataLayer.SeedData
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {
+            //Initialize countries data
             builder.HasData(
                 new Country { CountryID = "AU", Name = "Australia" },
                 new Country { CountryID = "AT", Name = "Austria" },
