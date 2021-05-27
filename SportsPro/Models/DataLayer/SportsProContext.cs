@@ -25,7 +25,6 @@ namespace SportsPro.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            // Call seed data
             modelBuilder.ApplyConfiguration(new SeedProduct());
             modelBuilder.ApplyConfiguration(new SeedTechnician());
             modelBuilder.ApplyConfiguration(new SeedCountry());
