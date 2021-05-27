@@ -15,6 +15,7 @@ namespace SportsPro.Models
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            // Initialize data for Products
             builder.HasData(
                     new Product
                     {
