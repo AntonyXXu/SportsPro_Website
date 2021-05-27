@@ -23,6 +23,15 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult List()
         {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View();
         }

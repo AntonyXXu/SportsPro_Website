@@ -5,20 +5,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using SportsPro.Models;
 
+
+
+
 namespace SportsPro.Controllers
 {
     public class CustomerController : Controller
     {
+
         // Initialize sports unit
         private ISportsUnitWork sportsUnit { get; set; }
         public CustomerController(ISportsUnitWork sports)
         {
             sportsUnit = sports;
+
         }
 
         [Route("customers")]
         public IActionResult List()
         {
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             // Query list of all customers
             IEnumerable<Customer> cust = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View(cust);

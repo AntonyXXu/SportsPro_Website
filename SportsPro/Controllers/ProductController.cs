@@ -20,6 +20,15 @@ namespace SportsPro.Controllers
         public IActionResult List()
         {
             //Query a list of products
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             IEnumerable<Product> prod = products.List(new QueryOptions<Product>());
             return View(prod);
         }
