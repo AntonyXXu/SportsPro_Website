@@ -47,13 +47,13 @@
                         <a class="nav-item nav-link" asp-controller="Technician" asp-action="List">Technicians</a>
                         <a class="nav-item nav-link" asp-controller="Customer" asp-action="List">Customers</a>
                         <a class="nav-item nav-link" asp-controller="Incident" asp-action="List">Incidents</a>
-                        <a class="nav-item nav-link" asp-controller="Incident" asp-action="ListByTech">Update Incidents</a>
+                        <a class="nav-item nav-link" asp-controller="TechIncident" asp-action="ListByTech">Update Incidents</a>
                         <a class="nav-item nav-link" asp-controller="Registration" asp-action="List">Registrations</a>
                     }
                     else if (User.IsInRole("Technician"))
                     {
                         <a class="nav-item nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                        <a class="nav-item nav-link" asp-controller="Incident" asp-action="ListByTech">Update Incidents</a>
+                        <a class="nav-item nav-link" asp-controller="TechIncident" asp-action="ListByTech">Update Incidents</a>
                     }
                     else
                     {

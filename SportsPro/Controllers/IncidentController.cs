@@ -113,25 +113,25 @@ namespace SportsPro.Controllers
             return View("Edit", views);
         }
 
-        [HttpGet]
-        public IActionResult ListByTech()
-        {
+        //[HttpGet]
+        //public IActionResult ListByTech()
+        //{
 
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
-            //else if (!User.IsInRole("Admin"))
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //Initialize technician view model
-            TechniciansViewModel textvm = new TechniciansViewModel()
-            {
-                Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>()).ToList()
-            };   
-            return View(textvm);
-        }
+        //    //if (!User.Identity.IsAuthenticated)
+        //    //{
+        //    //    return RedirectToAction("LogIn", "Account");
+        //    //}
+        //    //else if (!User.IsInRole("Admin"))
+        //    //{
+        //    //    return RedirectToAction("Index", "Home");
+        //    //}
+        //    //Initialize technician view model
+        //    TechniciansViewModel textvm = new TechniciansViewModel()
+        //    {
+        //        Technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>()).ToList()
+        //    };   
+        //    return View(textvm);
+        //}
 
         [HttpGet]
         public IActionResult TechList(int TechnicianID)

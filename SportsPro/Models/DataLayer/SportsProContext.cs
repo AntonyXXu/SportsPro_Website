@@ -65,7 +65,7 @@ namespace SportsPro.Models
             //);
 
             string username = "admin";
-            string password = "Sesame";
+            string password = "P@ssw0rd";
             string roleName = "Admin";
 
             // if role doesn't exist, create it

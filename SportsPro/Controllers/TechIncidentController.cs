@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class TechIncidentController : Controller
     {
         // Initialize sportsUnit and the sessions http
@@ -21,66 +21,6 @@ namespace SportsPro.Controllers
         {
             sportsUnit = ctx;
             http = httpctx;
-        }
-
-        [Route("incidents")]
-        public IActionResult List(string filter = "All")
-        {
-
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
-            //else if (!User.IsInRole("Admin"))
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            // Return list of incidents with customer and product data
-            QueryOptions<Incident> query = new QueryOptions<Incident>
-            {
-                Includes = "Customer, Product",
-                OrderBy = inc => inc.DateOpened
-            };
-
-            if (filter == "Unassigned")
-            {
-                // Query change where technicianID is not filled
-                query.Where = inc => inc.TechnicianID == null;
-            }
-            else if (filter == "Open")
-            {
-                // Query change where date is after today
-                query.Where = inc => inc.DateClosed == null || inc.DateClosed >= DateTime.Today;
-                query.Where = inc => inc.TechnicianID != null;
-            }
-            else if (filter == "Closed")
-            {
-                // Query change where date is date is before today
-                query.Where = inc => inc.DateClosed != null && inc.DateClosed < DateTime.Today;
-            }
-
-            // Get a list of incidents with the query
-            IEnumerable<Incident> incidents = sportsUnit.Incidents.List(query);
-            
-            // Initialize view model
-            IncidentViewModel views = new IncidentViewModel();
-            views.Filter = filter;
-            views.Incidents = incidents;
-            return View(views);
-        }
-
-
-        [HttpGet]
-        public IActionResult Add()
-        {
-            // Create a view model for add
-            IncidentAddEditViewModel views = new IncidentAddEditViewModel();
-            views.customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
-            views.products = sportsUnit.Products.List(new QueryOptions<Product>());
-            views.technicians = sportsUnit.Technicians.List(new QueryOptions<Technician>());
-            views.operation = "Add";
-            views.currentIncident = new Incident();
-            return View(views);
         }
 
         [HttpGet]
@@ -97,7 +37,7 @@ namespace SportsPro.Controllers
             return View("Add", views);
         }
 
-        [Authorize(Roles = "Technician")]
+    
         [HttpGet]
         public IActionResult EditTech(int id)
         {
@@ -144,31 +84,13 @@ namespace SportsPro.Controllers
                 OrderBy = inc => inc.DateOpened
             };
 
-            ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID)?.Name?? "You did not select a technician";
+            ViewBag.TechnicianName = sportsUnit.Technicians.Get(TechnicianID)?.Name ?? "You did not select a technician";
             // initialize incident view model
             IncidentViewModel views = new IncidentViewModel();
             views.Incidents = sportsUnit.Incidents.List(query);
             http.HttpContext.Session.SetInt32("techID", TechnicianID);
 
             return View(views);
-        }
-
-        [HttpPost]
-        public IActionResult Add(IncidentAddEditViewModel views)
-        {
-            try
-            {
-                // update the db context with added model
-                Incident incident = views.currentIncident;
-                sportsUnit.Incidents.Insert(incident);
-                sportsUnit.save();
-                TempData["message"] = $"{incident.Title} was successfully added";
-                return RedirectToAction("List", "Incident");
-            }
-            catch
-            {
-                return View(views);
-            }
         }
 
         [HttpPost]
@@ -184,9 +106,9 @@ namespace SportsPro.Controllers
                 int? techID = http.HttpContext.Session.GetInt32("techID");
                 if (dest != null)
                 {
-                    return RedirectToAction("TechList", "Incident", new { TechnicianID = techID });
+                    return RedirectToAction("TechList", "TechIncident", new { TechnicianID = techID });
                 }
-                return RedirectToAction("List", "Incident");
+                return RedirectToAction("List", "TechIncident");
             }
             catch
             {
@@ -204,7 +126,7 @@ namespace SportsPro.Controllers
                 sportsUnit.Incidents.Delete(incident);
                 sportsUnit.save();
                 TempData["message"] = $"{incident.Title} was successfully deleted";
-                return RedirectToAction("List", "Incident");
+                return RedirectToAction("List", "TechIncident");
             }
             catch
             {

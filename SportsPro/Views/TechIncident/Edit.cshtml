@@ -1,0 +1,60 @@
+﻿@model IncidentAddEditViewModel
+@{
+    ViewData["Title"] = Model.operation;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="@Model.operation" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.IncidentID" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.IncidentID" class="form-control" readonly />
+        <span asp-validation-for="@Model.currentIncident.IncidentID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.TechnicianID" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.TechnicianID" class="form-control" readonly />
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.Customer" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.CustomerID" class="form-control" readonly />
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.Product" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.ProductID" class="form-control" readonly />
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.Title" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.Title" class="form-control" readonly />
+        <span asp-validation-for="@Model.currentIncident.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.Description" class="control-label"></label>
+        <textarea asp-for="@Model.currentIncident.Description" class="form-control"></textarea>
+        <span asp-validation-for="@Model.currentIncident.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.DateOpened" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.DateOpened" class="form-control" readonly />
+        <span asp-validation-for="@Model.currentIncident.DateOpened" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.currentIncident.DateClosed" class="control-label"></label>
+        <input asp-for="@Model.currentIncident.DateClosed" class="form-control" />
+        <span asp-validation-for="@Model.currentIncident.DateClosed" class="text-danger"></span>
+    </div>
+    <input type="hidden" name="dest" value="@ViewBag.technician" />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <button type="button"
+                onclick="location.href='@Url.Action("TechList", "TechIncident", new {TechnicianID = ViewBag.technician })'"
+                class="btn btn-primary">
+            Cancel
+        </button>
+    </div>
+  
+</form>

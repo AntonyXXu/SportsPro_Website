@@ -1,0 +1,48 @@
+﻿@model IncidentViewModel
+@{
+    ViewData["Title"] = "Incidents by Technician";
+}
+
+<h1>Incidents by @ViewBag.TechnicianName</h1>
+@*<form asp-action="Add" asp method="get">
+        <input type="submit" value="Add new Incident" class="btn btn-primary" />
+    </form>*@
+@if (Model.Incidents.Count() == 0)
+{
+<h2>@ViewBag.TechnicianName - there are no open incidents</h2>
+}
+else {
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Date Opened</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var incident in Model.Incidents)
+        {
+            <tr>
+                <td>@incident.Title</td>
+                <td>@incident.Customer.FullName</td>
+                <td>@incident.Product.Name</td>
+                <td>@incident.DateOpened</td>
+                <td>
+                    <form asp-action="EditTech" asp-route-id="@incident.IncidentID" asp method="get">
+                        <input type="submit" value="Edit" class="btn btn-primary" />
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+}
+<a asp-controller="TechIncident" asp-action="ListByTech"
+   class="btn btn-primary">Back</a>
+
+

@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Update Incidents";
+}
+@model TechniciansViewModel
+
+<h1>Select Technician</h1>
+
+<form asp-action="TechList" method="get">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label name="Technician" class="control-label"></label>
+        @*<select name="TechnicianID" type="number" class="form-control"
+                asp-items="@(new SelectList(ViewBag.Technicians, "TechnicianID", "Name"))">
+        </select>*@
+        <select asp-for="TechnicianID" class="form-control">
+            <vc:technician-drop-down value="@Model.TechnicianID"
+                                     default-value=""
+                                     default-text="Select a Technician..." />
+        </select>
+        <span asp-validation-for="@Model.TechnicianID" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <input type="submit" value="Select" class="btn btn-primary" />
+    </div>
+</form>
+
