@@ -3,10 +3,10 @@
     ViewData["Title"] = "Incidents";
 }
 
-<h1>Incidents List</h1>
+<p class="pagetitle">Incidents List</p>
 
 
-<div class="list-group list-group-horizontal">
+<div class="list-group list-group-horizontal filters">
     @foreach (string filter in Model.FilterList)
     {
         <a asp-action="List"
@@ -19,7 +19,7 @@
 
 <br />
 <form asp-action="Add" asp method="get">
-    <input type="submit" value="Add new Incident" class="btn btn-primary" />
+    <input type="submit" value="Add Incident" class="btn btn-primary buttons" />
 </form>
 <table class="table table-bordered table-striped">
     <thead>

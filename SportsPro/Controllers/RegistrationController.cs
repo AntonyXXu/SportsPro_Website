@@ -25,46 +25,28 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult List()
         {
-
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
-            //else if (!User.IsInRole("Admin"))
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
             ViewBag.Customers = sportsUnit.Customers.List(new QueryOptions<Customer>());
             return View();
         }
-        //[HttpPost]
-        //public IActionResult List(MgrRegistrationModel currentCustomer)
-        //{
-        //    var session = new MySession(HttpContext.Session);
-        //    var sessionCust = session.GetCustomer();
-        //    sessionCust = sportsUnit.Customers.Get(currentCustomer.Customers.CustomerID);
-        //    session.SetCustomer(sessionCust);
-        //    return RedirectToAction("RegProduct", "Registration");
 
-        //}
-    
-    
         [HttpGet]
         public IActionResult RegProduct(int CustomerID)
         {
-                QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
-                {
-                    Where = inc => inc.CustomerID == CustomerID,
-                    Includes = "Customer, Product"
-                };
-                ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
-                ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
-                MgrRegistrationModel views = new MgrRegistrationModel();
-                views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
-                http.HttpContext.Session.SetInt32("custID", CustomerID);
+            
+            QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
+            {
+                Where = inc => inc.CustomerID == CustomerID,
+                Includes = "Customer, Product"
+            };
+            ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
+            ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
+            MgrRegistrationModel views = new MgrRegistrationModel();
+            views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
+            http.HttpContext.Session.SetInt32("custID", CustomerID);
 
             return View(views);
-            }
+            
+        }
 
         [HttpPost]
         public IActionResult RegProduct(MgrRegistrationModel views)

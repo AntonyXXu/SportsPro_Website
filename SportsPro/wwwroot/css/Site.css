@@ -27,8 +27,8 @@ html {
 }
 
 body {
-     
     margin-bottom: 40px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .footer {
@@ -39,3 +39,46 @@ body {
     line-height: 40px;  
 }
 
+/*Header Text*/
+.pagetitle {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: dimgrey;
+    margin-top: 35px;
+    margin-left: 35px;
+    margin-bottom: 20px;
+}
+.subtitle {
+    font-weight: 700;
+    font-size: 30px;
+    color: dimgrey;
+    margin-top: 35px;
+    margin-left: 35px;
+    margin-bottom: 20px;
+}
+.navlogo {
+    max-width: 150px;
+    min-width: 100%;
+}
+.logo {
+    margin-top: 25px;
+    max-width: 100%;
+}
+.tempmsg {
+    color: white;
+    border-radius: 10px;
+    font-size: 40px;
+    font-weight: 800;
+    text-align: center;
+    background-color: blueviolet;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 15px;
+}
+.buttons{
+    margin: 10px;
+}
+.filters{
+    color: blueviolet;
+}
