@@ -57,7 +57,7 @@ else
     <form asp-action="RegProduct" method="post">
         <input type="hidden" asp-for="CustomerID" />
         <div class="form-group">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <label name="Product" class="control-label"></label>
             <select name="ProductID" type="number" class="form-control"
                     asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name"))">

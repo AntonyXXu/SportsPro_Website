@@ -8,7 +8,7 @@ namespace SportsPro.Models
 {
     public class CustomerProduct
     {
-        [Required]
+        [Required(ErrorMessage = "Please select a product.")]
         public int ProductID { get; set; }
         [Required]
         public int CustomerID { get; set; }

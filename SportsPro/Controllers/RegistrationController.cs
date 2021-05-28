@@ -39,6 +39,11 @@ namespace SportsPro.Controllers
                 Includes = "Customer, Product"
             };
             ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
+            if (CustomerID == 0)
+            {
+                return RedirectToAction("List", "Registration");
+            }
+
             ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
             MgrRegistrationModel views = new MgrRegistrationModel();
             views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
@@ -51,10 +56,29 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult RegProduct(MgrRegistrationModel views)
         {
-            var reg = new CustomerProduct(){ ProductID = views.ProductID, CustomerID = views.CustomerID};
-            sportsUnit.CustomerProducts.Insert(reg);
-            sportsUnit.save();
-            return RedirectToAction("RegProduct", views);
+            try {
+                var reg = new CustomerProduct() { ProductID = views.ProductID, CustomerID = views.CustomerID };
+                sportsUnit.CustomerProducts.Insert(reg);
+                sportsUnit.save();
+                return RedirectToAction("RegProduct", views);
+            }
+            catch
+            {
+                int CustomerID = views.CustomerID;
+                QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
+                {
+                    Where = inc => inc.CustomerID == CustomerID,
+                    Includes = "Customer, Product"
+                };
+                ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
+                if (CustomerID == 0)
+                {
+                    return RedirectToAction("List", "Registration");
+                }
+                ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
+                views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
+                return View(views);
+            }
         }
 
         [HttpPost]
