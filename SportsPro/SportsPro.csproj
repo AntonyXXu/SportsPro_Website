@@ -10,6 +10,10 @@
     <Compile Remove="Migrations\20200107231832_Products.Designer.cs" />
     <Compile Remove="Migrations\20200110225202_Incidents_MoreChanges.cs" />
     <Compile Remove="Migrations\20200110225202_Incidents_MoreChanges.Designer.cs" />
+    <Compile Remove="Migrations\20210526214612_Identity.cs" />
+    <Compile Remove="Migrations\20210526214612_Identity.Designer.cs" />
+    <Compile Remove="Migrations\20210527164411_thursdayam.cs" />
+    <Compile Remove="Migrations\20210527164411_thursdayam.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,13 +26,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.15" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

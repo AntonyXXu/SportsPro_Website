@@ -10,8 +10,8 @@ using SportsPro.Models;
 namespace SportsPro.Migrations
 {
     [DbContext(typeof(SportsProContext))]
-    [Migration("20210526205919_wednesday_migration")]
-    partial class wednesday_migration
+    [Migration("20210528053828_Fullsite")]
+    partial class Fullsite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -791,10 +791,10 @@ namespace SportsPro.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Firstname")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Lastname")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
