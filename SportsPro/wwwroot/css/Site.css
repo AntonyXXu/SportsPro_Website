@@ -57,6 +57,13 @@ body {
     margin-left: 35px;
     margin-bottom: 20px;
 }
+.logintitle {
+    font-weight: 700;
+    font-size: 30px;
+    color: dimgrey;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
 .navlogo {
     max-width: 150px;
     min-width: 100%;
@@ -71,7 +78,7 @@ body {
     font-size: 40px;
     font-weight: 800;
     text-align: center;
-    background-color: blueviolet;
+    background-color: mediumslateblue;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-top: 15px;
@@ -81,4 +88,18 @@ body {
 }
 .filters{
     color: blueviolet;
+}
+.navname{
+    font-size: 25px;
+    margin-left: 20px;
+}
+.title2 {
+    font-size: 40px;
+}
+.aboutbg {
+    background-color: mediumslateblue;
+    text-align: center;
+}
+.abouttext{
+    font-size: 20px;
 }

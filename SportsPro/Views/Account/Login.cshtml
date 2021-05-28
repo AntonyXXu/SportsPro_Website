@@ -3,7 +3,7 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<p class="pagetitle">Login</p>
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <form method="post" asp-action="LogIn" asp-route-returnUrl="@Model.ReturnUrl">
@@ -43,6 +43,7 @@
     </div>
     <div class="row">
         <div class="offset-2 col-sm-4">
+            <br />
             Not registered? <a asp-action="Register">Register as a new user</a>
         </div>
     </div>
