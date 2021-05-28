@@ -2,11 +2,15 @@
 @{
     ViewData["Title"] = "Registrations";
 }
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 @if (Model.CustomerProducts.Count() == 0)
 {
-    <h1>Customer does not have any registered products.  Please select a product to register.</h1>
+    <p class="subtitle">There currently aren't any products registered to this customer.</p>
 
     <form asp-action="RegProduct" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" asp-for="CustomerID" />
         <div class="form-group">
             <label name="Product" class="control-label"></label>
@@ -17,32 +21,35 @@
         </div>
         <div class="form-group">
             <input type="submit" value="Select" class="btn btn-primary" />
+            <a asp-controller="Registration" asp-action="List"
+               class="btn btn-primary">Back</a>
         </div>
     </form>
 }
-else {
-<h1>Customer: @ViewBag.CustomerName</h1>
-
+else
+{
+    <p class="subtitle">Customer: @ViewBag.CustomerName</p>
 
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Product</th>
                 <th></th>
-                
+
             </tr>
         </thead>
         <tbody>
             @foreach (var customer in Model.CustomerProducts)
             {
                 <tr>
-                    <td>@customer.Product.Name<td>
+                    <td>@customer.Product.Name
+                    <td>
                         <form asp-action="Delete" asp-route-id="@customer.ProductID" asp method="post">
                             <input type="hidden" name="ProductID" value="@customer.ProductID" />
                             <input type="hidden" name="CustomerID" value="@customer.CustomerID" />
                             <input type="submit" value="Delete" class="btn btn-primary" />
                         </form>
-                    </tr>
+                </tr>
             }
         </tbody>
     </table>
@@ -50,6 +57,7 @@ else {
     <form asp-action="RegProduct" method="post">
         <input type="hidden" asp-for="CustomerID" />
         <div class="form-group">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <label name="Product" class="control-label"></label>
             <select name="ProductID" type="number" class="form-control"
                     asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name"))">

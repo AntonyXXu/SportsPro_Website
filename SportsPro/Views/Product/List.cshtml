@@ -3,7 +3,7 @@
     ViewData["Title"] = "Products";
 }
 
-<h1>Product List</h1>
+<p class="pagetitle">Product List</p>
 @*@if (TempData.Keys.Contains("message"))
 {
     <h4 class="bg-info text-center text-white p-2">
@@ -12,7 +12,7 @@
 }*@
 
 <form asp-action="Add" asp method="get">
-    <input type="submit" value="Add new Product" class="btn btn-primary" />
+    <input type="submit" value="Add Product" class="btn btn-primary buttons" />
 </form>
 <table class="table table-bordered table-striped">
     <thead>

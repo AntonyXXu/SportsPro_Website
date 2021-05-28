@@ -32,19 +32,20 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult RegProduct(int CustomerID)
         {
+            
+            QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
+            {
+                Where = inc => inc.CustomerID == CustomerID,
+                Includes = "Customer, Product"
+            };
+            ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
+            ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
+            MgrRegistrationModel views = new MgrRegistrationModel();
+            views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
+            http.HttpContext.Session.SetInt32("custID", CustomerID);
 
-                QueryOptions<CustomerProduct> query = new QueryOptions<CustomerProduct>
-                {
-                    Where = inc => inc.CustomerID == CustomerID,
-                    Includes = "Customer, Product"
-                };
-                ViewBag.Products = sportsUnit.Products.List(new QueryOptions<Product>());
-                ViewBag.CustomerName = sportsUnit.Customers.Get(CustomerID).FullName;
-                MgrRegistrationModel views = new MgrRegistrationModel();
-                views.CustomerProducts = sportsUnit.CustomerProducts.List(query);
-                http.HttpContext.Session.SetInt32("custID", CustomerID);
-
-                return View(views);            
+            return View(views);
+            
         }
 
         [HttpPost]

@@ -22,7 +22,9 @@ namespace SportsPro.Models.TagHelpers
             var td = ViewCtx.TempData;
             if (td.ContainsKey("message"))
             {
-                output.BuildTag("h4", "bg-info text-center text-white p-4");
+                //output.BuildTag("h4", "bg-info text-center text-white p-4");
+                output.BuildTag("h4", "tempmsg");
+
                 output.Content.SetContent(td["message"].ToString());
             }
             else
